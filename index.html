@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Checklist Vacances</title>
+<style>
+  :root{
+    --canvas:#EFE9DB;
+    --canvas-deep:#E3DAC4;
+    --ink:#22301F;
+    --forest:#2F4A34;
+    --forest-deep:#1C2F20;
+    --moss:#5C7A52;
+    --rust:#B5502F;
+    --rust-deep:#8F3E23;
+    --line:#C9BE9D;
+    --white:#FBF9F3;
+    --done-bg:#DCE6D4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--canvas);
+    background-image:
+      radial-gradient(circle at 10% 5%, rgba(47,74,52,0.05), transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(181,80,47,0.05), transparent 45%);
+    color:var(--ink);
+    font-family:'Iowan Old Style','Georgia',serif;
+    min-height:100vh;
+    padding-bottom:60px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  header{
+    background:var(--forest-deep);
+    color:var(--white);
+    padding:22px 18px 26px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+  }
+  header h1{
+    margin:0;
+    font-family:'Georgia', serif;
+    font-weight:700;
+    font-size:1.5rem;
+    letter-spacing:0.3px;
+  }
+  header .sub{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.78rem;
+    opacity:0.75;
+    margin-top:4px;
+    letter-spacing:0.4px;
+    text-transform:uppercase;
+  }
+  .progress-wrap{
+    margin-top:14px;
+  }
+  .progress-track{
+    background:rgba(255,255,255,0.14);
+    border-radius:20px;
+    height:10px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--rust), #D3703F);
+    width:0%;
+    transition:width .35s ease;
+    border-radius:20px;
+  }
+  .progress-label{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.72rem;
+    opacity:0.8;
+    margin-top:6px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .toolbar{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+    flex-wrap:wrap;
+  }
+  .toolbar button, .toolbar label{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.72rem;
+    background:rgba(255,255,255,0.1);
+    color:var(--white);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:7px 12px;
+    border-radius:20px;
+    cursor:pointer;
+    letter-spacing:0.3px;
+  }
+  .toolbar button:active{background:rgba(255,255,255,0.22);}
+
+  main{max-width:640px; margin:0 auto; padding:16px;}
+
+  .category{
+    margin-bottom:18px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  }
+  .cat-head{
+    background:var(--forest);
+    color:var(--white);
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    user-select:none;
+  }
+  .cat-head h2{
+    margin:0;
+    font-size:1.02rem;
+    font-weight:700;
+  }
+  .cat-count{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.72rem;
+    background:rgba(255,255,255,0.15);
+    padding:3px 9px;
+    border-radius:12px;
+    white-space:nowrap;
+  }
+  .cat-body{
+    display:block;
+  }
+  .cat-body.collapsed{display:none;}
+
+  .item{
+    display:flex;
+    align-items:center;
+    padding:10px 14px;
+    border-bottom:1px solid #EFEAD9;
+    gap:12px;
+  }
+  .item:last-child{border-bottom:none;}
+  .item.checked{background:var(--done-bg);}
+  .item.checked .item-label{
+    color:#5A6B54;
+    text-decoration:line-through;
+    text-decoration-color:var(--moss);
+  }
+  .checkbox{
+    width:22px;
+    height:22px;
+    min-width:22px;
+    border:2px solid var(--moss);
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--white);
+    flex-shrink:0;
+  }
+  .item.checked .checkbox{
+    background:var(--moss);
+    border-color:var(--moss);
+  }
+  .checkbox svg{width:14px; height:14px; opacity:0; transition:opacity .1s;}
+  .item.checked .checkbox svg{opacity:1;}
+  .item-label{
+    font-size:0.98rem;
+    line-height:1.3;
+  }
+
+  footer.note{
+    max-width:640px;
+    margin:10px auto 30px;
+    padding:0 20px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.72rem;
+    color:#7A7660;
+    text-align:center;
+  }
+
+  .chip-added{
+    display:inline-block;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.6rem;
+    background:var(--rust);
+    color:white;
+    padding:1px 6px;
+    border-radius:8px;
+    margin-left:8px;
+    vertical-align:middle;
+    letter-spacing:0.3px;
+  }
+
+  @media (min-width:700px){
+    header{padding:26px 30px 30px;}
+    main{padding:24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏕️ Checklist Vacances</h1>
+  <div class="sub">Camping en famille — à cocher avant le départ</div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label">
+      <span id="progressText">0 / 0</span>
+      <span id="progressPct">0%</span>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button id="resetBtn">Tout décocher</button>
+    <button id="collapseBtn">Replier les catégories cochées</button>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer class="note">Coché automatiquement sauvegardé sur cet appareil.</footer>
+
+<script>
+const DATA = [
+  ["Installation & structure", [
+    "Tente raclette","Marteau","Piquets","Tonnelle","Barre de toit","Sangles",
+    "Cadenas remorque","Bâches","Cordes","Table","4 chaises","2 chaises camping",
+    "2 transats","Table basse","Tapis (x2)"
+  ]],
+  ["Outillage", [
+    "Jeu de clés mixtes","Jeu de tournevis cliquet à embouts","Liquide de refroidissement"
+  ]],
+  ["Sanitaire", [
+    "Toilette chimique","Produit toilette chimique","Brosse toilette",
+    "Nécessaire de toilette, brosses à dents","Caleçons","Élastiques"
+  ]],
+  ["Électricité", [
+    "Allonge enrouleur","Allonge (x2)","Multiprise (x2)","Câble USB-C (x2)","Câble USB mini (x2)"
+  ]],
+  ["Cuisine", [
+    "Bonbonne de gaz","Cuisinière à gaz","Briquet long","Couverts","Assiettes","Gobelets","Tasses",
+    "Louche","Louche à pâtes","Spatule bois (x2)","Sous-plats (x2)","Planches (x2)","Tire-bouchon",
+    "Bouchons verre à vin","Couvercles silicone","Plats (x3)","Tupperware (x5)","Ouvre-boîte"
+  ]],
+  ["Rangement & linge", [
+    "Étagère à mannes","4 mannes à linge","Étagère (à préciser)",
+    "Armoire 3 compartiments (réserve nourriture)","Armoire 5 compartiments (vaisselle)",
+    "Essuies (x2)","Torchons (x3)","Éponges (x4)","Balai"
+  ]],
+  ["Froid", [
+    "Frigo box","Adaptateur frigo box","Glaçons refroidissants","Glaçons"
+  ]],
+  ["Confort", [
+    "Ventilateurs (x2)"
+  ]],
+  ["Sacs & affaires personnelles", [
+    "Sac à dos glacière","Sac à dos rando","Sac à dos normal","Sac de courses",
+    "Sacs de vêtements (x4)","Vêtements roses (Oscar / Cédric / Wivine)"
+  ]],
+  ["Papiers & argent", [
+    "Carte d'identité / passeport","Carte européenne d'assurance maladie",
+    "Attestation d'assurance camping / remorque","Espèces + carte bancaire",
+    "Permis de conduire, carte grise remorque"
+  ], true],
+  ["Pharmacie", [
+    "Trousse de premiers secours","Médicaments habituels / ordonnances",
+    "Crème solaire, après-soleil","Anti-moustique","Thermomètre, pansements"
+  ], true],
+  ["Électronique", [
+    "Chargeurs téléphone / GPS","Batterie externe","Appareil photo"
+  ], true],
+  ["Enfant", [
+    "Jeux / jouets, livres","Vélo + casque","Brassards ou gilet si baignade"
+  ], true],
+  ["Divers souvent oubliés", [
+    "Lampe de poche / frontale","Sacs poubelle","Papier essuie-tout, sopalin",
+    "Épingles à linge","Produit vaisselle","Rallonge spécifique raccordement électrique camping",
+    "Niveau à bulle (mise à niveau remorque)","Cales de roue"
+  ], true]
+];
+
+const STORAGE_KEY = "checklist_vacances_v1";
+
+function loadState(){
+  try{
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  }catch(e){ return {}; }
+}
+function saveState(state){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+let collapsedCats = JSON.parse(localStorage.getItem(STORAGE_KEY+"_collapsed") || "{}");
+
+const app = document.getElementById("app");
+
+function slug(catIdx, itemIdx){ return "c"+catIdx+"_i"+itemIdx; }
+
+function render(){
+  app.innerHTML = "";
+  let total = 0, done = 0;
+
+  DATA.forEach((cat, ci)=>{
+    const [title, items, isNew] = cat;
+    const catEl = document.createElement("div");
+    catEl.className = "category";
+
+    const head = document.createElement("div");
+    head.className = "cat-head";
+    const doneInCat = items.filter((_,ii)=>state[slug(ci,ii)]).length;
+    head.innerHTML = `<h2>${title}${isNew?'<span class="chip-added">ajouté</span>':''}</h2><span class="cat-count">${doneInCat}/${items.length}</span>`;
+    head.addEventListener("click", ()=>{
+      collapsedCats[ci] = !collapsedCats[ci];
+      localStorage.setItem(STORAGE_KEY+"_collapsed", JSON.stringify(collapsedCats));
+      render();
+    });
+
+    const body = document.createElement("div");
+    body.className = "cat-body" + (collapsedCats[ci] ? " collapsed" : "");
+
+    items.forEach((label, ii)=>{
+      total++;
+      const key = slug(ci, ii);
+      const checked = !!state[key];
+      if(checked) done++;
+      const row = document.createElement("div");
+      row.className = "item" + (checked ? " checked" : "");
+      row.innerHTML = `
+        <div class="checkbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="item-label">${label}</div>
+      `;
+      row.addEventListener("click", ()=>{
+        state[key] = !state[key];
+        saveState(state);
+        render();
+      });
+      body.appendChild(row);
+    });
+
+    catEl.appendChild(head);
+    catEl.appendChild(body);
+    app.appendChild(catEl);
+  });
+
+  document.getElementById("progressText").textContent = `${done} / ${total}`;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById("progressPct").textContent = pct + "%";
+  document.getElementById("progressFill").style.width = pct + "%";
+}
+
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  if(confirm("Tout décocher ?")){
+    state = {};
+    saveState(state);
+    render();
+  }
+});
+
+document.getElementById("collapseBtn").addEventListener("click", ()=>{
+  DATA.forEach((cat, ci)=>{
+    const items = cat[1];
+    const allDone = items.every((_,ii)=>state[slug(ci,ii)]);
+    if(allDone) collapsedCats[ci] = true;
+  });
+  localStorage.setItem(STORAGE_KEY+"_collapsed", JSON.stringify(collapsedCats));
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
