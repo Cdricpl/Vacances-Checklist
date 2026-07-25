@@ -232,18 +232,19 @@
   .item-tools{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:2px;
   }
-  .del-btn{
+  .edit-btn, .del-btn{
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     background:none;
     border:none;
     color:#B0A88C;
-    font-size:1.1rem;
+    font-size:1.05rem;
     line-height:1;
     cursor:pointer;
-    padding:2px 4px;
+    padding:4px 6px;
   }
+  .edit-btn:active{color:var(--forest);}
   .del-btn:active{color:var(--rust);}
   .empty-cat{
     padding:18px 14px;
@@ -348,7 +349,7 @@
       -webkit-print-color-adjust:exact;
       print-color-adjust:exact;
     }
-    header, .tabs, .toolbar, footer.note, .overlay, .del-btn{display:none !important;}
+    header, .tabs, .toolbar, footer.note, .overlay, .item-tools{display:none !important;}
     .print-header{
       display:block;
       margin:0 0 12px;
@@ -413,7 +414,7 @@
 <!-- Modale d'ajout -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h3>Ajouter un élément</h3>
+    <h3 id="modalTitle">Ajouter un élément</h3>
     <label for="newLabel">Nom de l'élément</label>
     <input type="text" id="newLabel" placeholder="Ex. Sac de couchage" autocomplete="off">
     <label for="newCat">Catégorie</label>
@@ -464,7 +465,7 @@ const DATA = [
   ]],
   ["Sacs & affaires personnelles", [
     "Sac à dos glacière","Sac à dos rando","Sac à dos normal","Sac de courses",
-    "Sacs de vêtements (x4)","Vêtements roses (Oscar / Cédric / Wivine)","Caleçons"
+    "Sacs de vêtements (x4)","Vêtements roses (Oscar / Cédric / Wivine)","Colecons"
   ]],
   ["Papiers & argent", [
     "Carte d'identité / passeport","Carte européenne d'assurance maladie",
@@ -484,7 +485,7 @@ const DATA = [
 ];
 
 const STORAGE_KEY = "checklist_vacances_v1";
-const VERSION = "1.5";
+const VERSION = "1.6";
 const VERSION_DATE = "25/07/2026";
 
 function loadState(){
@@ -499,17 +500,36 @@ function loadCustom(){
 }
 function saveCustom(){ localStorage.setItem(STORAGE_KEY+"_custom", JSON.stringify(customItems)); }
 
+function loadOverrides(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY+"_over")) || {}; }
+  catch(e){ return {}; }
+}
+function saveOverrides(){ localStorage.setItem(STORAGE_KEY+"_over", JSON.stringify(overrides)); }
+
+function loadRemoved(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY+"_removed")) || []; }
+  catch(e){ return []; }
+}
+function saveRemoved(){ localStorage.setItem(STORAGE_KEY+"_removed", JSON.stringify(removed)); }
+
 let state = loadState();
-let customItems = loadCustom(); // [{id, cat (index), label}]
+let customItems = loadCustom();   // [{id, cat (index), label}]
+let overrides = loadOverrides();  // {clé: nouveau libellé}  (renommage des éléments d'origine)
+let removed = loadRemoved();      // [clé]  (éléments d'origine supprimés)
 let activeTab = parseInt(localStorage.getItem(STORAGE_KEY+"_tab") || "0", 10);
 if(isNaN(activeTab) || activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
 
 const app = document.getElementById("app");
 const tabsEl = document.getElementById("tabs");
 
-// Liste fusionnée : éléments d'origine + éléments ajoutés par l'utilisateur
+// Liste fusionnée : éléments d'origine (renommés/supprimés pris en compte) + éléments ajoutés
 function getItems(ci){
-  const list = DATA[ci][1].map((label, ii)=>({ key:"c"+ci+"_i"+ii, label, custom:false }));
+  const list = [];
+  DATA[ci][1].forEach((label, ii)=>{
+    const key = "c"+ci+"_i"+ii;
+    if(removed.indexOf(key) !== -1) return;
+    list.push({ key, label: overrides[key] || label, custom:false });
+  });
   customItems.forEach(it=>{
     if(it.cat === ci) list.push({ key:"custom_"+it.id, label:it.label, custom:true, id:it.id });
   });
@@ -573,20 +593,26 @@ function render(){
 
       const tools = document.createElement("div");
       tools.className = "item-tools";
-      if(it.custom){
-        const del = document.createElement("button");
-        del.className = "del-btn";
-        del.setAttribute("aria-label","Supprimer");
-        del.textContent = "✕";
-        del.addEventListener("click", (e)=>{
-          e.stopPropagation();
-          customItems = customItems.filter(x=>x.id !== it.id);
-          delete state[it.key];
-          saveCustom(); saveState();
-          render();
-        });
-        tools.appendChild(del);
-      }
+
+      const edit = document.createElement("button");
+      edit.className = "edit-btn";
+      edit.setAttribute("aria-label","Modifier");
+      edit.textContent = "✎";
+      edit.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        openEditModal(it, ci);
+      });
+      tools.appendChild(edit);
+
+      const del = document.createElement("button");
+      del.className = "del-btn";
+      del.setAttribute("aria-label","Supprimer");
+      del.textContent = "✕";
+      del.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        deleteItem(it);
+      });
+      tools.appendChild(del);
 
       row.appendChild(box);
       row.appendChild(lbl);
@@ -626,12 +652,34 @@ document.getElementById("pdfBtn").addEventListener("click", ()=>{
   window.print();
 });
 
-/* ----- Modale d'ajout ----- */
+function newId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+/* ----- Suppression d'un élément ----- */
+function deleteItem(it){
+  if(!confirm("Supprimer « " + it.label + " » ?")) return;
+  if(it.custom){
+    customItems = customItems.filter(x=>x.id !== it.id);
+    saveCustom();
+  }else{
+    if(removed.indexOf(it.key) === -1){ removed.push(it.key); saveRemoved(); }
+    if(overrides[it.key]){ delete overrides[it.key]; saveOverrides(); }
+  }
+  delete state[it.key];
+  saveState();
+  render();
+}
+
+/* ----- Modale (ajout / modification) ----- */
 const overlay = document.getElementById("overlay");
 const newLabel = document.getElementById("newLabel");
 const newCat = document.getElementById("newCat");
+const modalTitle = document.getElementById("modalTitle");
+const confirmBtn = document.getElementById("confirmAdd");
 
-function openModal(){
+let modalMode = "add";   // "add" | "edit"
+let editRef = null;      // {custom, key, ci, id}
+
+function fillCatSelect(selected){
   newCat.innerHTML = "";
   DATA.forEach((cat, ci)=>{
     const opt = document.createElement("option");
@@ -639,31 +687,72 @@ function openModal(){
     opt.textContent = cat[0];
     newCat.appendChild(opt);
   });
-  newCat.value = activeTab;        // pré-sélectionne l'onglet courant
+  newCat.value = selected;
+}
+
+function openAddModal(){
+  modalMode = "add"; editRef = null;
+  modalTitle.textContent = "Ajouter un élément";
+  confirmBtn.textContent = "Ajouter";
+  fillCatSelect(activeTab);        // pré-sélectionne l'onglet courant
   newLabel.value = "";
   overlay.classList.add("open");
   setTimeout(()=>newLabel.focus(), 50);
 }
+
+function openEditModal(it, ci){
+  modalMode = "edit";
+  editRef = { custom: it.custom, key: it.key, ci: ci, id: it.id };
+  modalTitle.textContent = "Modifier l'élément";
+  confirmBtn.textContent = "Enregistrer";
+  fillCatSelect(ci);
+  newLabel.value = it.label;
+  overlay.classList.add("open");
+  setTimeout(()=>{ newLabel.focus(); newLabel.select(); }, 50);
+}
+
 function closeModal(){ overlay.classList.remove("open"); }
 
-function addItem(){
+function confirmModal(){
   const label = newLabel.value.trim();
   if(!label){ newLabel.focus(); return; }
   const ci = parseInt(newCat.value, 10);
-  const id = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
-  customItems.push({ id, cat: ci, label });
-  saveCustom();
+
+  if(modalMode === "add"){
+    customItems.push({ id: newId(), cat: ci, label });
+    saveCustom();
+  }else{
+    if(editRef.custom){
+      const item = customItems.find(x=>x.id === editRef.id);
+      if(item){ item.label = label; item.cat = ci; saveCustom(); }
+    }else if(ci === editRef.ci){
+      // Même catégorie : simple renommage
+      overrides[editRef.key] = label;
+      saveOverrides();
+    }else{
+      // Changement de catégorie : on retire l'élément d'origine et on le recrée comme personnalisé
+      if(removed.indexOf(editRef.key) === -1){ removed.push(editRef.key); saveRemoved(); }
+      if(overrides[editRef.key]){ delete overrides[editRef.key]; saveOverrides(); }
+      const id = newId();
+      customItems.push({ id, cat: ci, label });
+      saveCustom();
+      if(state[editRef.key]){ state["custom_"+id] = true; }  // on conserve l'état coché
+      delete state[editRef.key];
+    }
+  }
+
+  saveState();
   activeTab = ci;
   localStorage.setItem(STORAGE_KEY+"_tab", ci);
   closeModal();
   render();
 }
 
-document.getElementById("addBtn").addEventListener("click", openModal);
+document.getElementById("addBtn").addEventListener("click", openAddModal);
 document.getElementById("cancelAdd").addEventListener("click", closeModal);
-document.getElementById("confirmAdd").addEventListener("click", addItem);
+confirmBtn.addEventListener("click", confirmModal);
 overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeModal(); });
-newLabel.addEventListener("keydown", (e)=>{ if(e.key === "Enter") addItem(); });
+newLabel.addEventListener("keydown", (e)=>{ if(e.key === "Enter") confirmModal(); });
 
 document.getElementById("version").textContent = "Version " + VERSION + " — " + VERSION_DATE;
 
