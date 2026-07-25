@@ -85,7 +85,7 @@
     margin-top:14px;
     flex-wrap:wrap;
   }
-  .toolbar button, .toolbar label{
+  .toolbar button{
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     font-size:0.72rem;
     background:rgba(255,255,255,0.1);
@@ -97,6 +97,60 @@
     letter-spacing:0.3px;
   }
   .toolbar button:active{background:rgba(255,255,255,0.22);}
+  .toolbar button.accent{
+    background:var(--rust);
+    border-color:var(--rust);
+  }
+  .toolbar button.accent:active{background:var(--rust-deep);}
+
+  /* ---- Onglets ---- */
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:15;
+    background:var(--canvas-deep);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    gap:6px;
+    padding:10px 12px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+  }
+  .tab{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.78rem;
+    white-space:nowrap;
+    background:var(--white);
+    color:var(--forest);
+    border:1px solid var(--line);
+    padding:8px 13px;
+    border-radius:20px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex:0 0 auto;
+  }
+  .tab.active{
+    background:var(--forest);
+    color:var(--white);
+    border-color:var(--forest);
+  }
+  .tab .tab-badge{
+    font-size:0.66rem;
+    background:rgba(0,0,0,0.12);
+    padding:2px 7px;
+    border-radius:10px;
+  }
+  .tab.active .tab-badge{background:rgba(255,255,255,0.22);}
+  .tab.complete{border-color:var(--moss);}
+  .tab .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--rust);
+    flex-shrink:0;
+  }
+  .tab.complete .dot{background:var(--moss);}
 
   main{max-width:640px; margin:0 auto; padding:16px;}
 
@@ -108,6 +162,7 @@
     overflow:hidden;
     box-shadow:0 1px 3px rgba(0,0,0,0.04);
   }
+  .category.hidden-tab{display:none;}
   .cat-head{
     background:var(--forest);
     color:var(--white);
@@ -115,7 +170,6 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    cursor:pointer;
     user-select:none;
   }
   .cat-head h2{
@@ -131,10 +185,7 @@
     border-radius:12px;
     white-space:nowrap;
   }
-  .cat-body{
-    display:block;
-  }
-  .cat-body.collapsed{display:none;}
+  .cat-body{display:block;}
 
   .item{
     display:flex;
@@ -171,6 +222,30 @@
   .item-label{
     font-size:0.98rem;
     line-height:1.3;
+    flex:1;
+  }
+  .item-tools{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .del-btn{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:none;
+    border:none;
+    color:#B0A88C;
+    font-size:1.1rem;
+    line-height:1;
+    cursor:pointer;
+    padding:2px 4px;
+  }
+  .del-btn:active{color:var(--rust);}
+  .empty-cat{
+    padding:18px 14px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:0.82rem;
+    color:#8A836B;
+    text-align:center;
   }
 
   footer.note{
@@ -196,6 +271,106 @@
     letter-spacing:0.3px;
   }
 
+  /* ---- Modale d'ajout ---- */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(28,47,32,0.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:40;
+    padding:18px;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:var(--white);
+    border-radius:14px;
+    width:100%;
+    max-width:400px;
+    padding:20px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.3);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  .modal h3{
+    margin:0 0 14px;
+    font-family:'Georgia',serif;
+    color:var(--forest-deep);
+    font-size:1.15rem;
+  }
+  .modal label{
+    display:block;
+    font-size:0.74rem;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    color:#7A7660;
+    margin:12px 0 5px;
+  }
+  .modal input, .modal select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:0.95rem;
+    background:#fff;
+    color:var(--ink);
+    font-family:inherit;
+  }
+  .modal input:focus, .modal select:focus{
+    outline:none;
+    border-color:var(--moss);
+  }
+  .modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:11px;
+    border-radius:8px;
+    font-size:0.9rem;
+    cursor:pointer;
+    border:1px solid var(--line);
+    font-family:inherit;
+  }
+  .btn-cancel{background:#fff;color:var(--ink);}
+  .btn-add{background:var(--rust);color:#fff;border-color:var(--rust);font-weight:600;}
+
+  /* ---- Impression / PDF ---- */
+  .print-header{display:none;}
+  @media print{
+    @page{margin:14mm;}
+    body{
+      background:#fff;
+      color:#000;
+      padding:0;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    header, .tabs, .toolbar, footer.note, .overlay, .del-btn{display:none !important;}
+    .print-header{
+      display:block;
+      margin:0 0 12px;
+    }
+    .print-header h1{margin:0 0 2px;font-size:20pt;color:#1C2F20;}
+    .print-header .meta{font-family:sans-serif;font-size:9pt;color:#555;}
+    main{max-width:none;padding:0;}
+    .category{
+      break-inside:avoid;
+      box-shadow:none;
+      border:1px solid #999;
+      margin-bottom:10px;
+    }
+    .category.hidden-tab{display:block !important;}
+    .cat-head{background:#2F4A34 !important;color:#fff !important;}
+    .item{padding:5px 10px;}
+    .item.checked{background:#DCE6D4 !important;}
+    .checkbox{border:2px solid #2F4A34 !important;}
+    .item.checked .checkbox{background:#2F4A34 !important;}
+    .item.checked .checkbox svg{opacity:1 !important;}
+  }
+
   @media (min-width:700px){
     header{padding:26px 30px 30px;}
     main{padding:24px;}
@@ -215,14 +390,37 @@
     </div>
   </div>
   <div class="toolbar">
+    <button id="addBtn" class="accent">＋ Ajouter un élément</button>
+    <button id="pdfBtn">⭳ Exporter en PDF</button>
     <button id="resetBtn">Tout décocher</button>
-    <button id="collapseBtn">Replier les catégories cochées</button>
   </div>
 </header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<div class="print-header">
+  <h1>🏕️ Checklist Vacances — Camping en famille</h1>
+  <div class="meta" id="printMeta"></div>
+</div>
 
 <main id="app"></main>
 
 <footer class="note">Coché automatiquement sauvegardé sur cet appareil.</footer>
+
+<!-- Modale d'ajout -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3>Ajouter un élément</h3>
+    <label for="newLabel">Nom de l'élément</label>
+    <input type="text" id="newLabel" placeholder="Ex. Sac de couchage" autocomplete="off">
+    <label for="newCat">Catégorie</label>
+    <select id="newCat"></select>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelAdd">Annuler</button>
+      <button class="btn-add" id="confirmAdd">Ajouter</button>
+    </div>
+  </div>
+</div>
 
 <script>
 const DATA = [
@@ -286,61 +484,112 @@ const DATA = [
 const STORAGE_KEY = "checklist_vacances_v1";
 
 function loadState(){
-  try{
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  }catch(e){ return {}; }
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch(e){ return {}; }
 }
-function saveState(state){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function loadCustom(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY+"_custom")) || []; }
+  catch(e){ return []; }
 }
+function saveCustom(){ localStorage.setItem(STORAGE_KEY+"_custom", JSON.stringify(customItems)); }
 
 let state = loadState();
-let collapsedCats = JSON.parse(localStorage.getItem(STORAGE_KEY+"_collapsed") || "{}");
+let customItems = loadCustom(); // [{id, cat (index), label}]
+let activeTab = parseInt(localStorage.getItem(STORAGE_KEY+"_tab") || "0", 10);
+if(isNaN(activeTab) || activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
 
 const app = document.getElementById("app");
+const tabsEl = document.getElementById("tabs");
 
-function slug(catIdx, itemIdx){ return "c"+catIdx+"_i"+itemIdx; }
+// Liste fusionnée : éléments d'origine + éléments ajoutés par l'utilisateur
+function getItems(ci){
+  const list = DATA[ci][1].map((label, ii)=>({ key:"c"+ci+"_i"+ii, label, custom:false }));
+  customItems.forEach(it=>{
+    if(it.cat === ci) list.push({ key:"custom_"+it.id, label:it.label, custom:true, id:it.id });
+  });
+  return list;
+}
 
 function render(){
   app.innerHTML = "";
+  tabsEl.innerHTML = "";
   let total = 0, done = 0;
 
   DATA.forEach((cat, ci)=>{
-    const [title, items, isNew] = cat;
+    const [title, , isNew] = cat;
+    const items = getItems(ci);
+    const doneInCat = items.filter(it=>state[it.key]).length;
+    total += items.length;
+    done += doneInCat;
+    const complete = items.length > 0 && doneInCat === items.length;
+
+    // ----- Onglet -----
+    const tab = document.createElement("button");
+    tab.className = "tab" + (ci === activeTab ? " active" : "") + (complete ? " complete" : "");
+    tab.innerHTML = `<span class="dot"></span>${title}<span class="tab-badge">${doneInCat}/${items.length}</span>`;
+    tab.addEventListener("click", ()=>{
+      activeTab = ci;
+      localStorage.setItem(STORAGE_KEY+"_tab", ci);
+      render();
+    });
+    tabsEl.appendChild(tab);
+
+    // ----- Catégorie (toutes rendues ; masquées sauf l'onglet actif, toutes visibles à l'impression) -----
     const catEl = document.createElement("div");
-    catEl.className = "category";
+    catEl.className = "category" + (ci === activeTab ? "" : " hidden-tab");
 
     const head = document.createElement("div");
     head.className = "cat-head";
-    const doneInCat = items.filter((_,ii)=>state[slug(ci,ii)]).length;
     head.innerHTML = `<h2>${title}${isNew?'<span class="chip-added">ajouté</span>':''}</h2><span class="cat-count">${doneInCat}/${items.length}</span>`;
-    head.addEventListener("click", ()=>{
-      collapsedCats[ci] = !collapsedCats[ci];
-      localStorage.setItem(STORAGE_KEY+"_collapsed", JSON.stringify(collapsedCats));
-      render();
-    });
 
     const body = document.createElement("div");
-    body.className = "cat-body" + (collapsedCats[ci] ? " collapsed" : "");
+    body.className = "cat-body";
 
-    items.forEach((label, ii)=>{
-      total++;
-      const key = slug(ci, ii);
-      const checked = !!state[key];
-      if(checked) done++;
+    if(items.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "empty-cat";
+      empty.textContent = "Aucun élément.";
+      body.appendChild(empty);
+    }
+
+    items.forEach(it=>{
+      const checked = !!state[it.key];
       const row = document.createElement("div");
       row.className = "item" + (checked ? " checked" : "");
-      row.innerHTML = `
-        <div class="checkbox">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <div class="item-label">${label}</div>
-      `;
+
+      const box = document.createElement("div");
+      box.className = "checkbox";
+      box.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+      const lbl = document.createElement("div");
+      lbl.className = "item-label";
+      lbl.textContent = it.label;
+
+      const tools = document.createElement("div");
+      tools.className = "item-tools";
+      if(it.custom){
+        const del = document.createElement("button");
+        del.className = "del-btn";
+        del.setAttribute("aria-label","Supprimer");
+        del.textContent = "✕";
+        del.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          customItems = customItems.filter(x=>x.id !== it.id);
+          delete state[it.key];
+          saveCustom(); saveState();
+          render();
+        });
+        tools.appendChild(del);
+      }
+
+      row.appendChild(box);
+      row.appendChild(lbl);
+      row.appendChild(tools);
       row.addEventListener("click", ()=>{
-        state[key] = !state[key];
-        saveState(state);
+        state[it.key] = !state[it.key];
+        saveState();
         render();
       });
       body.appendChild(row);
@@ -357,23 +606,60 @@ function render(){
   document.getElementById("progressFill").style.width = pct + "%";
 }
 
+/* ----- Boutons ----- */
 document.getElementById("resetBtn").addEventListener("click", ()=>{
   if(confirm("Tout décocher ?")){
     state = {};
-    saveState(state);
+    saveState();
     render();
   }
 });
 
-document.getElementById("collapseBtn").addEventListener("click", ()=>{
-  DATA.forEach((cat, ci)=>{
-    const items = cat[1];
-    const allDone = items.every((_,ii)=>state[slug(ci,ii)]);
-    if(allDone) collapsedCats[ci] = true;
-  });
-  localStorage.setItem(STORAGE_KEY+"_collapsed", JSON.stringify(collapsedCats));
-  render();
+document.getElementById("pdfBtn").addEventListener("click", ()=>{
+  const d = new Date();
+  document.getElementById("printMeta").textContent =
+    "Édité le " + d.toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+  window.print();
 });
+
+/* ----- Modale d'ajout ----- */
+const overlay = document.getElementById("overlay");
+const newLabel = document.getElementById("newLabel");
+const newCat = document.getElementById("newCat");
+
+function openModal(){
+  newCat.innerHTML = "";
+  DATA.forEach((cat, ci)=>{
+    const opt = document.createElement("option");
+    opt.value = ci;
+    opt.textContent = cat[0];
+    newCat.appendChild(opt);
+  });
+  newCat.value = activeTab;        // pré-sélectionne l'onglet courant
+  newLabel.value = "";
+  overlay.classList.add("open");
+  setTimeout(()=>newLabel.focus(), 50);
+}
+function closeModal(){ overlay.classList.remove("open"); }
+
+function addItem(){
+  const label = newLabel.value.trim();
+  if(!label){ newLabel.focus(); return; }
+  const ci = parseInt(newCat.value, 10);
+  const id = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+  customItems.push({ id, cat: ci, label });
+  saveCustom();
+  activeTab = ci;
+  localStorage.setItem(STORAGE_KEY+"_tab", ci);
+  closeModal();
+  render();
+}
+
+document.getElementById("addBtn").addEventListener("click", openModal);
+document.getElementById("cancelAdd").addEventListener("click", closeModal);
+document.getElementById("confirmAdd").addEventListener("click", addItem);
+overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeModal(); });
+newLabel.addEventListener("keydown", (e)=>{ if(e.key === "Enter") addItem(); });
 
 render();
 </script>
