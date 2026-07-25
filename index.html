@@ -6,422 +6,450 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="theme-color" content="#1E2F21">
+<meta name="theme-color" content="#FBF6EA">
 <title>Checklist Vacances</title>
 <style>
   :root{
-    --radius:16px;
-    --radius-sm:12px;
-    --radius-pill:22px;
     --ease:cubic-bezier(.4,0,.2,1);
+    --hand:'Bradley Hand','Segoe Print','Comic Sans MS','Chalkboard SE','Marker Felt',cursive;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
 
-    --bg:#F1EBDD;
-    --grad1:rgba(47,74,52,.06);
-    --grad2:rgba(192,91,51,.06);
-    --surface:#FCFAF4;
-    --surface-2:#FFFFFF;
-    --ink:#23301E;
-    --muted:#8B846C;
-    --line:#E6DEC8;
-    --line-soft:#EFE9DA;
-    --forest:#2F4A34;
-    --forest-ink:#22331F;
-    --accent:#C05B33;
-    --accent-2:#D9784E;
-    --moss:#6B8A5E;
-    --done:#E6ECDC;
-    --shadow:0 1px 2px rgba(30,40,25,.05),0 6px 22px rgba(30,40,25,.07);
-    --shadow-lg:0 16px 48px rgba(18,28,16,.30);
-    --header:#1E2F21;
-    --header-ink:#F4F1E6;
-    --header-soft:rgba(255,255,255,.62);
+    --paper:#FBF6EA;
+    --paper-2:#F4EDDD;
+    --card:#FFFFFF;
+    --ink:#3A3A38;
+    --ink-soft:#7C766A;
+    --line:#E7DFCC;
+    --shadow:0 2px 3px rgba(90,75,45,.06), 0 10px 26px rgba(90,75,45,.10);
+    --shadow-lg:0 20px 60px rgba(60,45,20,.30);
+    --tape:rgba(255,255,255,.62);
+    --row:#FFFFFF;
+    --row-done:rgba(255,255,255,.45);
+    --tick:#FFFFFF;
+    --dash:rgba(0,0,0,.10);
   }
   :root[data-theme="dark"]{
-    --bg:#141C16;
-    --grad1:rgba(120,160,120,.06);
-    --grad2:rgba(217,120,78,.08);
-    --surface:#1C2620;
-    --surface-2:#212D25;
-    --ink:#E8E4D5;
-    --muted:#9AA28F;
-    --line:#2C3A2E;
-    --line-soft:#253228;
-    --forest:#3E5D43;
-    --forest-ink:#CFE3CC;
-    --accent:#DB7B50;
-    --accent-2:#E88E63;
-    --moss:#84A574;
-    --done:#233024;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 22px rgba(0,0,0,.38);
-    --shadow-lg:0 18px 52px rgba(0,0,0,.6);
-    --header:#0F150F;
-    --header-ink:#EAF0E4;
-    --header-soft:rgba(233,240,228,.55);
+    --paper:#191A1D;
+    --paper-2:#1F2126;
+    --card:#25272C;
+    --ink:#EDE8DC;
+    --ink-soft:#9C978A;
+    --line:#33363D;
+    --shadow:0 2px 3px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45);
+    --shadow-lg:0 20px 60px rgba(0,0,0,.7);
+    --tape:rgba(255,255,255,.10);
+    --row:#2C3036;
+    --row-done:rgba(0,0,0,.30);
+    --tick:#1A1C20;
+    --dash:rgba(255,255,255,.16);
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
-      --bg:#141C16;
-      --grad1:rgba(120,160,120,.06);
-      --grad2:rgba(217,120,78,.08);
-      --surface:#1C2620;
-      --surface-2:#212D25;
-      --ink:#E8E4D5;
-      --muted:#9AA28F;
-      --line:#2C3A2E;
-      --line-soft:#253228;
-      --forest:#3E5D43;
-      --forest-ink:#CFE3CC;
-      --accent:#DB7B50;
-      --accent-2:#E88E63;
-      --moss:#84A574;
-      --done:#233024;
-      --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 22px rgba(0,0,0,.38);
-      --shadow-lg:0 18px 52px rgba(0,0,0,.6);
-      --header:#0F150F;
-      --header-ink:#EAF0E4;
-      --header-soft:rgba(233,240,228,.55);
+      --paper:#191A1D; --paper-2:#1F2126; --card:#25272C;
+      --ink:#EDE8DC; --ink-soft:#9C978A; --line:#33363D;
+      --shadow:0 2px 3px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45);
+      --shadow-lg:0 20px 60px rgba(0,0,0,.7);
+      --tape:rgba(255,255,255,.10);
+      --row:#2C3036;
+      --row-done:rgba(0,0,0,.30);
+      --tick:#1A1C20;
+      --dash:rgba(255,255,255,.16);
     }
   }
 
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--bg);
-    background-image:
-      radial-gradient(circle at 8% 0%, var(--grad1), transparent 42%),
-      radial-gradient(circle at 92% 100%, var(--grad2), transparent 46%);
-    background-attachment:fixed;
+    font-family:var(--body);
     color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 4%, rgba(168,224,197,.22), transparent 34%),
+      radial-gradient(circle at 88% 12%, rgba(249,190,180,.20), transparent 32%),
+      radial-gradient(circle at 50% 96%, rgba(185,199,242,.18), transparent 38%);
+    background-attachment:fixed;
     min-height:100vh;
-    padding-bottom:96px;
+    padding-bottom:98px;
     transition:background-color .3s var(--ease), color .3s var(--ease);
   }
 
-  /* ---------- Header ---------- */
+  /* ================= En-tête affiche ================= */
   header{
-    position:sticky; top:0; z-index:30;
-    background:var(--header);
-    color:var(--header-ink);
-    padding:16px 18px 14px;
-    box-shadow:0 6px 20px rgba(0,0,0,.16);
+    position:relative;
+    text-align:center;
+    padding:22px 18px 16px;
   }
-  .head-top{display:flex; align-items:center; justify-content:space-between; gap:12px;}
-  .head-top h1{
-    margin:0;
-    font-family:'Iowan Old Style',Georgia,'Times New Roman',serif;
-    font-weight:700; font-size:1.34rem; letter-spacing:.2px;
-    display:flex; align-items:center; gap:9px;
-  }
-  .head-actions{display:flex; gap:8px;}
-  .icon-btn{
-    width:38px; height:38px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(255,255,255,.1);
-    border:1px solid rgba(255,255,255,.16);
-    color:var(--header-ink); cursor:pointer; font-size:1.02rem;
-    transition:transform .15s var(--ease), background .2s var(--ease);
-  }
-  .icon-btn:active{transform:scale(.9); background:rgba(255,255,255,.22);}
+  .doodle{position:absolute; font-size:1.5rem; opacity:.85; user-select:none;}
+  .doodle.l{left:16px; top:24px; transform:rotate(-14deg);}
+  .doodle.r{right:16px; top:24px; transform:rotate(14deg);}
 
-  .progress-wrap{margin-top:13px;}
-  .progress-track{
-    background:rgba(255,255,255,.14);
-    border-radius:20px; height:9px; overflow:hidden;
+  h1.title{
+    margin:0; line-height:1.02;
+    font-family:var(--hand);
+    font-weight:400;
   }
-  .progress-fill{
-    height:100%; width:0%;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    border-radius:20px;
-    transition:width .5s var(--ease);
+  h1.title .l1{
+    display:block; font-size:2.05rem; color:var(--ink);
+    letter-spacing:.5px;
   }
-  .progress-label{
+  h1.title .l2{
+    display:block; font-size:1.62rem; font-weight:700;
+    color:#2E8B74; margin-top:-2px;
+  }
+  :root[data-theme="dark"] h1.title .l2{color:#7FD9BE;}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h1.title .l2{color:#7FD9BE;}}
+  .squiggle{display:block; margin:6px auto 0; width:180px; height:9px; opacity:.55;}
+  .tagline{
+    font-family:var(--hand);
+    font-size:.94rem; color:var(--ink-soft); margin-top:8px;
+  }
+
+  /* ---- Jauge globale ---- */
+  .gauge{
+    max-width:520px; margin:16px auto 0; padding:0 20px;
+  }
+  .gauge-track{
+    height:14px; border-radius:20px;
+    background:var(--paper-2);
+    border:1.5px solid var(--line);
+    overflow:hidden; padding:2px;
+  }
+  .gauge-fill{
+    height:100%; width:0%; border-radius:20px;
+    background:linear-gradient(90deg,#7FD3B2,#F2B49F,#B9C7F2);
+    transition:width .55s var(--ease);
+  }
+  .gauge-txt{
+    font-family:var(--hand); font-size:1rem;
+    margin-top:7px; color:var(--ink-soft);
     display:flex; justify-content:space-between; align-items:baseline;
-    margin-top:7px; font-size:.72rem; color:var(--header-soft); letter-spacing:.3px;
   }
-  .progress-label b{color:var(--header-ink); font-weight:600;}
+  .gauge-txt b{color:var(--ink); font-weight:700;}
 
-  .mini-actions{display:flex; gap:8px; margin-top:12px;}
-  .chip-btn{
-    flex:0 0 auto;
-    display:inline-flex; align-items:center; gap:6px;
-    font-size:.74rem; font-weight:500;
-    background:rgba(255,255,255,.1);
-    color:var(--header-ink);
-    border:1px solid rgba(255,255,255,.16);
-    padding:7px 13px; border-radius:var(--radius-pill);
-    cursor:pointer; transition:transform .15s var(--ease), background .2s var(--ease);
+  .tools-row{
+    display:flex; gap:9px; justify-content:center; flex-wrap:wrap;
+    margin:14px auto 0; padding:0 16px; max-width:520px;
   }
-  .chip-btn:active{transform:scale(.95); background:rgba(255,255,255,.22);}
+  .tool-btn{
+    font-family:var(--body); font-size:.78rem; font-weight:600;
+    background:var(--card); color:var(--ink);
+    border:1.5px solid var(--line);
+    padding:9px 15px; border-radius:24px; cursor:pointer;
+    box-shadow:0 2px 0 var(--line);
+    transition:transform .14s var(--ease), box-shadow .14s var(--ease);
+  }
+  .tool-btn:active{transform:translateY(2px); box-shadow:none;}
 
-  /* ---------- Onglets ---------- */
+  /* ================= Onglets pastel ================= */
   .tabs{
-    position:sticky; top:0; z-index:20;
-    background:var(--bg);
-    display:flex; flex-wrap:wrap; gap:7px;
-    padding:12px 14px;
-    border-bottom:1px solid var(--line);
-    max-height:44vh; overflow-y:auto;
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    padding:18px 14px 6px; max-width:640px; margin:0 auto;
   }
   .tab{
+    --c:#DDD; --d:#666;
     display:inline-flex; align-items:center; gap:7px;
-    font-size:.77rem; font-weight:500; white-space:nowrap;
-    background:var(--surface); color:var(--ink);
-    border:1px solid var(--line);
-    padding:8px 12px; border-radius:var(--radius-pill);
-    cursor:pointer;
-    transition:transform .14s var(--ease), background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+    font-family:var(--body); font-size:.78rem; font-weight:600;
+    white-space:nowrap; cursor:pointer;
+    background:var(--card); color:var(--ink);
+    border:2px solid var(--c);
+    padding:8px 13px; border-radius:24px;
+    transition:transform .14s var(--ease), background .22s var(--ease), color .2s var(--ease);
   }
-  .tab:active{transform:scale(.95);}
-  .tab .t-ico{font-size:.95rem; line-height:1;}
+  .tab:active{transform:scale(.94);}
+  .tab .t-ico{font-size:.98rem; line-height:1;}
   .tab .t-count{
-    font-size:.66rem; color:var(--muted);
-    background:var(--line-soft); padding:2px 7px; border-radius:10px;
-    transition:background .2s var(--ease), color .2s var(--ease);
+    font-size:.68rem; font-weight:700; color:var(--d);
+    background:var(--c); padding:2px 8px; border-radius:12px;
   }
-  .tab.active{
-    background:var(--forest); color:#fff; border-color:var(--forest);
-    box-shadow:0 4px 14px rgba(47,74,52,.28);
+  .tab.active{background:var(--c); color:var(--d); border-color:var(--d);}
+  .tab.active .t-count{background:var(--d); color:#fff;}
+  .tab.done{position:relative;}
+  .tab.done::after{
+    content:"✓"; font-size:.7rem; font-weight:800; color:var(--d);
+    margin-left:-2px;
   }
-  .tab.active .t-count{background:rgba(255,255,255,.22); color:#fff;}
-  .tab.complete{border-color:var(--moss);}
-  .tab.complete .t-count{background:var(--moss); color:#fff;}
-  .tab.active.complete{background:var(--moss); border-color:var(--moss); box-shadow:0 4px 14px rgba(107,138,94,.32);}
+  :root[data-theme="dark"] .tab{background:var(--card); color:var(--ink);}
+  :root[data-theme="dark"] .tab .t-count{color:#1B1C20;}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .tab .t-count{color:#1B1C20;}
+  }
 
-  /* ---------- Contenu ---------- */
-  main{max-width:620px; margin:0 auto; padding:16px 14px 0;}
+  /* ================= Carte catégorie (post-it) ================= */
+  main{max-width:560px; margin:0 auto; padding:12px 16px 0;}
 
-  .cat-card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
+  .cat{
+    --c:#DDD; --d:#666;
+    --catbg:var(--c);
+    --acc:var(--d);
+    position:relative;
+    background:var(--catbg);
+    border-radius:6px;
+    padding:26px 16px 18px;
     box-shadow:var(--shadow);
-    overflow:hidden;
-    animation:enter .32s var(--ease);
+    transform:rotate(-.55deg);
+    animation:pop .34s var(--ease);
   }
-  @keyframes enter{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes pop{from{opacity:0; transform:rotate(-.55deg) translateY(14px) scale(.985);}
+                 to{opacity:1; transform:rotate(-.55deg) translateY(0) scale(1);}}
+  /* scotch */
+  .cat::before{
+    content:""; position:absolute; top:-11px; left:50%;
+    transform:translateX(-50%) rotate(-1.6deg);
+    width:104px; height:24px;
+    background:var(--tape);
+    border-left:1px dashed rgba(0,0,0,.07);
+    border-right:1px dashed rgba(0,0,0,.07);
+    box-shadow:0 1px 3px rgba(0,0,0,.06);
+  }
+  /* hachures déco */
+  .cat::after{
+    content:""; position:absolute; top:12px; right:12px;
+    width:46px; height:20px; opacity:.35;
+    background:repeating-linear-gradient(115deg, var(--acc) 0 1.5px, transparent 1.5px 6px);
+  }
+  :root[data-theme="dark"] .cat{
+    --catbg:color-mix(in srgb, var(--c) 15%, #1F2126);
+    --acc:var(--c);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .cat{
+      --catbg:color-mix(in srgb, var(--c) 15%, #1F2126);
+      --acc:var(--c);
+    }
+  }
 
-  .cat-head{
-    display:flex; align-items:center; gap:13px;
-    padding:15px 16px;
-    border-bottom:1px solid var(--line-soft);
+  .cat-top{
+    display:flex; align-items:flex-start; gap:11px;
+    padding:0 2px 12px;
+    border-bottom:2px dashed var(--dash);
+    margin-bottom:12px;
   }
-  .cat-ring{
-    --p:0;
-    position:relative; width:44px; height:44px; flex-shrink:0; border-radius:50%;
-    background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--line-soft) 0);
-    transition:background .5s var(--ease);
+  .cat-ico{font-size:1.5rem; line-height:1.1; flex-shrink:0;}
+  .cat-tt{flex:1; min-width:0;}
+  .cat-tt h2{
+    margin:0; font-family:var(--hand); font-weight:700;
+    font-size:1.34rem; color:var(--acc); line-height:1.14;
+    letter-spacing:.3px;
   }
-  .cat-ring::after{
-    content:""; position:absolute; inset:4px; border-radius:50%;
-    background:var(--surface);
-    display:block;
+  .cat-tt .cnt{
+    font-family:var(--hand); font-size:.92rem;
+    color:var(--acc); opacity:.78; margin-top:2px;
   }
-  .cat-ring .ring-ico{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-size:1.15rem; z-index:1;
+  .all-btn{
+    flex-shrink:0; align-self:center;
+    font-family:var(--body); font-size:.7rem; font-weight:700;
+    background:var(--row); color:var(--acc);
+    border:1.5px solid var(--acc);
+    padding:6px 11px; border-radius:20px; cursor:pointer;
+    transition:transform .14s var(--ease);
   }
-  .cat-head .ct{flex:1; min-width:0;}
-  .cat-head h2{
-    margin:0; font-size:1.06rem; font-weight:700; color:var(--forest-ink);
-    line-height:1.2;
-  }
-  .cat-head .sub{font-size:.74rem; color:var(--muted); margin-top:3px;}
-  .toggle-all{
-    flex-shrink:0;
-    font-size:.72rem; font-weight:500;
-    background:transparent; color:var(--accent);
-    border:1px solid var(--line);
-    padding:7px 11px; border-radius:var(--radius-pill);
-    cursor:pointer; transition:transform .14s var(--ease), background .2s var(--ease);
-  }
-  .toggle-all:active{transform:scale(.94); background:var(--line-soft);}
+  .all-btn:active{transform:scale(.92);}
 
-  .items{list-style:none; margin:0; padding:4px;}
+  .items{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
   .item{
-    display:flex; align-items:center; gap:13px;
-    padding:11px 12px; border-radius:var(--radius-sm);
+    display:flex; align-items:center; gap:11px;
+    background:var(--row);
+    border-radius:22px;
+    padding:10px 8px 10px 13px;
     cursor:pointer;
-    transition:background .25s var(--ease);
+    box-shadow:0 1px 2px rgba(0,0,0,.06);
+    transition:transform .14s var(--ease), background .25s var(--ease), opacity .25s var(--ease);
   }
-  .item + .item{margin-top:1px;}
-  .item:active{background:var(--line-soft);}
-  .item.checked{background:var(--done);}
+  .item:active{transform:scale(.985);}
+  .item.checked{background:var(--row-done); opacity:.78;}
 
-  .chk{
-    width:24px; height:24px; min-width:24px; border-radius:7px;
-    border:2px solid var(--moss);
+  .box{
+    width:21px; height:21px; min-width:21px;
+    border:2.5px solid var(--acc); border-radius:5px;
+    background:var(--row);
+    color:var(--tick);
     display:flex; align-items:center; justify-content:center;
-    background:var(--surface-2);
-    transition:background .22s var(--ease), border-color .22s var(--ease);
+    transition:background .22s var(--ease);
   }
-  .item.checked .chk{background:var(--moss); border-color:var(--moss);}
-  .chk svg{width:15px; height:15px;}
-  .chk svg polyline{
+  .item.checked .box{background:var(--acc);}
+  .box svg{width:14px; height:14px;}
+  .box svg polyline{
     stroke-dasharray:24; stroke-dashoffset:24;
-    transition:stroke-dashoffset .3s var(--ease) .04s;
+    transition:stroke-dashoffset .3s var(--ease) .03s;
   }
-  .item.checked .chk svg polyline{stroke-dashoffset:0;}
+  .item.checked .box svg polyline{stroke-dashoffset:0;}
 
   .lbl{
-    flex:1; min-width:0; font-size:.97rem; line-height:1.32;
-    transition:color .25s var(--ease);
+    flex:1; min-width:0; font-size:.95rem; line-height:1.3;
     word-break:break-word;
+    transition:color .25s var(--ease);
   }
   .item.checked .lbl{
-    color:var(--muted);
-    text-decoration:line-through; text-decoration-color:var(--moss);
+    text-decoration:line-through; text-decoration-color:var(--acc);
+    color:var(--ink-soft);
   }
-  .tools{display:flex; align-items:center; gap:1px; flex-shrink:0;}
+  .tools{display:flex; gap:0; flex-shrink:0;}
   .t-btn{
-    width:34px; height:34px; border-radius:9px;
+    width:31px; height:31px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    background:transparent; border:none; color:var(--muted);
-    cursor:pointer; font-size:1rem;
-    transition:transform .14s var(--ease), background .2s var(--ease), color .2s var(--ease);
+    background:transparent; border:none; color:var(--ink-soft);
+    font-size:.92rem; cursor:pointer;
+    transition:transform .14s var(--ease), background .2s var(--ease);
   }
-  .t-btn:active{transform:scale(.86);}
-  .t-btn.edit:active{color:var(--forest); background:var(--line-soft);}
-  .t-btn.del:active{color:var(--accent); background:var(--line-soft);}
+  .t-btn:active{transform:scale(.84); background:rgba(0,0,0,.06);}
 
-  .empty{padding:26px 16px; text-align:center; color:var(--muted); font-size:.86rem;}
+  .empty{
+    font-family:var(--hand); font-size:1rem;
+    text-align:center; color:var(--acc); opacity:.75; padding:20px 8px;
+  }
 
-  /* ---------- FAB ---------- */
+  /* ================= FAB ================= */
   .fab{
     position:fixed; right:18px; bottom:22px; z-index:25;
-    width:58px; height:58px; border-radius:50%;
-    background:linear-gradient(145deg,var(--accent),var(--accent-2));
-    color:#fff; border:none; cursor:pointer;
-    font-size:1.9rem; line-height:1; font-weight:300;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 10px 26px rgba(192,91,51,.42);
-    transition:transform .18s var(--ease), box-shadow .2s var(--ease);
-    padding-bottom:3px;
+    height:52px; padding:0 20px 2px; border-radius:26px;
+    background:#2E8B74; color:#fff; border:none; cursor:pointer;
+    font-family:var(--body); font-size:.9rem; font-weight:700;
+    display:flex; align-items:center; gap:7px;
+    box-shadow:0 8px 22px rgba(46,139,116,.42);
+    transition:transform .16s var(--ease);
   }
-  .fab:active{transform:scale(.9);}
+  .fab span.p{font-size:1.35rem; font-weight:400; line-height:1;}
+  .fab:active{transform:scale(.93);}
 
   footer{
-    text-align:center; color:var(--muted);
-    font-size:.72rem; margin:22px auto 8px; padding:0 20px;
+    text-align:center; color:var(--ink-soft);
+    font-family:var(--hand); font-size:.9rem;
+    margin:26px auto 10px; padding:0 20px;
   }
-  footer .ver{opacity:.8; display:block; margin-top:4px;}
+  footer .ver{display:block; font-family:var(--body); font-size:.68rem; opacity:.75; margin-top:5px;}
 
-  /* ---------- Feuille modale ---------- */
+  /* ================= Feuille modale ================= */
   .backdrop{
     position:fixed; inset:0; z-index:40;
-    background:rgba(15,22,15,.5);
-    opacity:0; pointer-events:none;
-    transition:opacity .28s var(--ease);
-    backdrop-filter:blur(2px);
+    background:rgba(40,32,18,.46); backdrop-filter:blur(2px);
+    opacity:0; pointer-events:none; transition:opacity .28s var(--ease);
   }
   .backdrop.open{opacity:1; pointer-events:auto;}
   .sheet{
     position:fixed; left:0; right:0; bottom:0; z-index:41;
-    margin:0 auto; max-width:480px;
-    background:var(--surface);
-    border-radius:22px 22px 0 0;
+    margin:0 auto; max-width:460px;
+    background:var(--paper);
+    border-radius:24px 24px 0 0;
     box-shadow:var(--shadow-lg);
-    padding:8px 20px calc(22px + env(safe-area-inset-bottom));
-    transform:translateY(110%);
-    transition:transform .34s var(--ease);
+    padding:8px 20px calc(20px + env(safe-area-inset-bottom));
+    transform:translateY(110%); transition:transform .34s var(--ease);
   }
   .sheet.open{transform:translateY(0);}
-  .grabber{width:40px; height:4px; border-radius:4px; background:var(--line); margin:8px auto 14px;}
-  .sheet h3{margin:0 0 4px; font-size:1.16rem; color:var(--forest-ink); font-family:'Iowan Old Style',Georgia,serif;}
-  .sheet .field{margin-top:15px;}
-  .sheet label{
-    display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.5px;
-    color:var(--muted); margin-bottom:6px;
+  .grab{width:42px; height:4px; border-radius:4px; background:var(--line); margin:8px auto 14px;}
+  .sheet h3{
+    margin:0; font-family:var(--hand); font-weight:700;
+    font-size:1.35rem; color:var(--ink);
   }
-  .sheet input, .sheet select{
+  .field{margin-top:15px;}
+  .field label{
+    display:block; font-size:.71rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.6px;
+    color:var(--ink-soft); margin-bottom:6px;
+  }
+  .field input, .field select{
     width:100%; padding:13px 14px;
-    border:1.5px solid var(--line); border-radius:12px;
-    font-size:1rem; background:var(--surface-2); color:var(--ink);
+    border:2px solid var(--line); border-radius:14px;
+    font-size:1rem; background:var(--card); color:var(--ink);
     font-family:inherit; transition:border-color .2s var(--ease);
   }
-  .sheet input:focus, .sheet select:focus{outline:none; border-color:var(--moss);}
-  .sheet-actions{display:flex; gap:11px; margin-top:22px;}
+  .field input:focus, .field select:focus{outline:none; border-color:#2E8B74;}
+  .sheet-actions{display:flex; gap:11px; margin-top:20px;}
   .sheet-actions button{
-    flex:1; padding:14px; border-radius:12px; font-size:.95rem; font-weight:600;
-    cursor:pointer; border:1px solid var(--line); font-family:inherit;
+    flex:1; padding:14px; border-radius:26px;
+    font-size:.94rem; font-weight:700; font-family:inherit;
+    cursor:pointer; border:2px solid var(--line);
     transition:transform .14s var(--ease);
   }
-  .sheet-actions button:active{transform:scale(.97);}
-  .btn-cancel{background:var(--surface-2); color:var(--ink);}
-  .btn-ok{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .sheet-actions button:active{transform:scale(.96);}
+  .btn-cancel{background:var(--card); color:var(--ink);}
+  .btn-ok{background:#2E8B74; color:#fff; border-color:#2E8B74;}
   .sheet-del{
-    display:none; width:100%; margin-top:14px; padding:11px;
-    background:transparent; border:none; color:var(--accent);
-    font-size:.86rem; cursor:pointer; font-family:inherit;
+    display:none; width:100%; margin-top:12px; padding:11px;
+    background:none; border:none; color:#C0553F;
+    font-size:.85rem; font-weight:600; cursor:pointer; font-family:inherit;
   }
   .sheet.editing .sheet-del{display:block;}
 
-  /* ---------- Impression / PDF ---------- */
+  /* ================= Impression ================= */
   .print-header{display:none;}
   @media print{
-    @page{margin:13mm;}
-    body{background:#fff; color:#000; padding:0;
+    @page{margin:12mm;}
+    body{background:#fff !important; background-image:none !important;
+      color:#000; padding:0;
       -webkit-print-color-adjust:exact; print-color-adjust:exact;}
-    header, .tabs, .fab, footer, .backdrop, .sheet, .tools, .toggle-all{display:none !important;}
-    .print-header{display:block; margin:0 0 12px;}
-    .print-header h1{margin:0; font-size:20pt; color:#1E2F21;
-      font-family:Georgia,serif;}
-    .print-header .meta{font-size:9pt; color:#555; margin-top:2px;}
+    header, .tabs, .fab, footer, .backdrop, .sheet, .tools, .all-btn, .gauge, .tools-row{display:none !important;}
+    .print-header{display:block; text-align:center; margin:0 0 14px;}
+    .print-header h1{margin:0; font-family:var(--hand); font-size:22pt; color:#2E8B74;}
+    .print-header .meta{font-size:8.5pt; color:#666; margin-top:3px; font-family:var(--body);}
     main{max-width:none; padding:0;}
-    .cat-card{break-inside:avoid; box-shadow:none; border:1px solid #999;
-      margin-bottom:10px; animation:none; display:block !important;}
-    .cat-ring{background:#eee !important;}
-    .cat-ring::after{background:#fff !important;}
-    .item{padding:5px 8px;}
-    .item.checked{background:#E6ECDC !important;}
-    .chk{border:2px solid #2F4A34 !important;}
-    .item.checked .chk{background:#2F4A34 !important;}
-    .item.checked .chk svg polyline{stroke-dashoffset:0 !important;}
+    .cat{
+      break-inside:avoid; transform:none; animation:none;
+      box-shadow:none; border:1.5px solid #bbb;
+      margin-bottom:9px; padding:12px 12px 10px;
+    }
+    .cat::before, .cat::after{display:none;}
+    .items{gap:3px;}
+    .item{padding:4px 8px; box-shadow:none; background:#fff !important;}
+    .item.checked{opacity:1;}
+    .box{border:2px solid #444 !important;}
+    .item.checked .box{background:#444 !important;}
+    .item.checked .box svg polyline{stroke-dashoffset:0 !important;}
+  }
+
+  @media (min-width:640px){
+    h1.title .l1{font-size:2.4rem;}
+    h1.title .l2{font-size:1.9rem;}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="head-top">
-    <h1><span>🏕️</span> Checklist Vacances</h1>
-    <div class="head-actions">
-      <button class="icon-btn" id="themeBtn" aria-label="Changer le thème">🌙</button>
+  <span class="doodle l">🦀</span>
+  <span class="doodle r">🌴</span>
+  <h1 class="title">
+    <span class="l1">Check-list</span>
+    <span class="l2">des vacances</span>
+  </h1>
+  <svg class="squiggle" viewBox="0 0 180 9" fill="none" aria-hidden="true">
+    <path d="M2 6C22 2 38 8 58 5s34-5 54-1 32 6 52 2" stroke="#2E8B74" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+  <div class="tagline">Camping en famille — à cocher avant le départ 🏕️</div>
+
+  <div class="gauge">
+    <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
+    <div class="gauge-txt">
+      <span><b id="gTxt">0 / 0</b> dans les valises</span>
+      <b id="gPct">0%</b>
     </div>
   </div>
-  <div class="progress-wrap">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-label">
-      <span><b id="progressText">0 / 0</b> éléments prêts</span>
-      <b id="progressPct">0%</b>
-    </div>
-  </div>
-  <div class="mini-actions">
-    <button class="chip-btn" id="pdfBtn">⭳ Exporter en PDF</button>
-    <button class="chip-btn" id="resetBtn">↺ Tout décocher</button>
+
+  <div class="tools-row">
+    <button class="tool-btn" id="pdfBtn">⭳ Exporter en PDF</button>
+    <button class="tool-btn" id="resetBtn">↺ Tout décocher</button>
+    <button class="tool-btn" id="themeBtn" aria-label="Changer le thème">🌙</button>
   </div>
 </header>
 
 <nav class="tabs" id="tabs"></nav>
 
 <div class="print-header">
-  <h1>🏕️ Checklist Vacances — Camping en famille</h1>
+  <h1>Check-list des vacances</h1>
   <div class="meta" id="printMeta"></div>
 </div>
 
 <main id="app"></main>
 
-<button class="fab" id="fab" aria-label="Ajouter un élément">+</button>
+<button class="fab" id="fab"><span class="p">+</span> Ajouter</button>
 
 <footer>
-  Coché automatiquement sauvegardé sur cet appareil.
+  Coché automatiquement sauvegardé sur cet appareil ✓
   <span class="ver" id="version"></span>
 </footer>
 
-<!-- Feuille modale (ajout / modification) -->
 <div class="backdrop" id="backdrop"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true">
-  <div class="grabber"></div>
+  <div class="grab"></div>
   <h3 id="sheetTitle">Ajouter un élément</h3>
   <div class="field">
     <label for="fLabel">Nom de l'élément</label>
@@ -505,26 +533,43 @@ const DATA = [
     "Poupée","Ballon","Jeu de société"
   ]]
 ];
-const ICONS = ["⛺","🔧","🚿","🔌","🍳","🧺","❄️","🌬️","🛏️","🎒","📄","💊","🔋","🧸"];
 
-const VERSION = "2.0";
+/* icône + couleur pastel + couleur foncée, par catégorie */
+const STYLE = [
+  ["⛺","#A8E0C5","#1F6B52"],
+  ["🔧","#AFD9F2","#175F86"],
+  ["🚿","#D0BFF2","#5B3F9C"],
+  ["🔌","#F7E39A","#856107"],
+  ["🍳","#F9BEB4","#A8402F"],
+  ["🧺","#FBD3A6","#96590F"],
+  ["❄️","#A9E4E8","#12707A"],
+  ["🌬️","#F6BFD8","#9C3567"],
+  ["🛏️","#B9C7F2","#36479B"],
+  ["🎒","#CBE7A4","#4E7420"],
+  ["📄","#EBD9AE","#7A5A1E"],
+  ["💊","#F7BABA","#A83232"],
+  ["🔋","#ABE0D2","#136B58"],
+  ["🧸","#FBDA8B","#96690A"]
+];
+
+const VERSION = "3.0";
 const VERSION_DATE = "25/07/2026";
 const KEY = "checklist_vacances_v1";
 
 /* ---------- Persistance ---------- */
-function load(k, def){ try{ return JSON.parse(localStorage.getItem(k)) ?? def; }catch(e){ return def; } }
-let state    = load(KEY, {});
-let customs  = load(KEY+"_custom", []);   // [{id, cat, label}]
-let overrides= load(KEY+"_over", {});     // {clé: libellé}
-let removed  = load(KEY+"_removed", []);  // [clé]
+function load(k, def){ try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? def; }catch(e){ return def; } }
+let state     = load(KEY, {});
+let customs   = load(KEY+"_custom", []);
+let overrides = load(KEY+"_over", {});
+let removed   = load(KEY+"_removed", []);
 let activeTab = parseInt(localStorage.getItem(KEY+"_tab") || "0", 10);
 if(isNaN(activeTab) || activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
 
 const save = (k,v)=> localStorage.setItem(k, JSON.stringify(v));
-const saveState    = ()=> save(KEY, state);
-const saveCustoms  = ()=> save(KEY+"_custom", customs);
-const saveOverrides= ()=> save(KEY+"_over", overrides);
-const saveRemoved  = ()=> save(KEY+"_removed", removed);
+const saveState     = ()=> save(KEY, state);
+const saveCustoms   = ()=> save(KEY+"_custom", customs);
+const saveOverrides = ()=> save(KEY+"_over", overrides);
+const saveRemoved   = ()=> save(KEY+"_removed", removed);
 
 /* ---------- Thème ---------- */
 const themeBtn = document.getElementById("themeBtn");
@@ -533,18 +578,17 @@ function effectiveTheme(){
   if(t) return t;
   return window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light";
 }
-function applyTheme(){
+(function initTheme(){
   const saved = localStorage.getItem(KEY+"_theme");
   if(saved) document.documentElement.setAttribute("data-theme", saved);
-  themeBtn.textContent = effectiveTheme() === "dark" ? "☀️" : "🌙";
-}
+  themeBtn.textContent = effectiveTheme()==="dark" ? "☀️" : "🌙";
+})();
 themeBtn.addEventListener("click", ()=>{
-  const next = effectiveTheme() === "dark" ? "light" : "dark";
+  const next = effectiveTheme()==="dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem(KEY+"_theme", next);
-  themeBtn.textContent = next === "dark" ? "☀️" : "🌙";
+  themeBtn.textContent = next==="dark" ? "☀️" : "🌙";
 });
-applyTheme();
 
 /* ---------- Données fusionnées ---------- */
 function getItems(ci){
@@ -559,188 +603,165 @@ function getItems(ci){
   });
   return list;
 }
-const countCat = (ci)=>{
+function countCat(ci){
   const items = getItems(ci);
-  const done = items.filter(it=>state[it.key]).length;
-  return { done, total: items.length };
-};
-
-const app  = document.getElementById("app");
-const tabsEl = document.getElementById("tabs");
-
-/* ---------- Rendu ---------- */
-function checkSvg(){
-  return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  return { done: items.filter(it=>state[it.key]).length, total: items.length };
 }
 
+const app    = document.getElementById("app");
+const tabsEl = document.getElementById("tabs");
+const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+/* ---------- Onglets ---------- */
 function renderTabs(){
   tabsEl.innerHTML = "";
   DATA.forEach((cat, ci)=>{
+    const [ico, pastel, deep] = STYLE[ci] || ["•","#DDD","#666"];
     const {done, total} = countCat(ci);
-    const complete = total > 0 && done === total;
     const tab = document.createElement("button");
-    tab.className = "tab" + (ci===activeTab?" active":"") + (complete?" complete":"");
+    tab.className = "tab" + (ci===activeTab?" active":"") + (total>0 && done===total ? " done" : "");
     tab.dataset.ci = ci;
+    tab.style.setProperty("--c", pastel);
+    tab.style.setProperty("--d", deep);
 
-    const ico = document.createElement("span"); ico.className="t-ico"; ico.textContent = ICONS[ci]||"•";
-    const name = document.createElement("span"); name.textContent = cat[0];
-    const cnt = document.createElement("span"); cnt.className="t-count"; cnt.textContent = done+"/"+total;
-    tab.append(ico, name, cnt);
+    const i = document.createElement("span"); i.className="t-ico"; i.textContent=ico;
+    const n = document.createElement("span"); n.textContent=cat[0];
+    const c = document.createElement("span"); c.className="t-count"; c.textContent=done+"/"+total;
+    tab.append(i, n, c);
 
     tab.addEventListener("click", ()=>{
       if(ci === activeTab) return;
       activeTab = ci;
       localStorage.setItem(KEY+"_tab", ci);
-      renderTabs();
-      renderContent();
-      window.scrollTo({top:0, behavior:"smooth"});
+      renderTabs(); renderContent();
+      window.scrollTo({ top: tabsEl.offsetTop - 8, behavior:"smooth" });
     });
     tabsEl.appendChild(tab);
   });
 }
 
+/* ---------- Carte catégorie ---------- */
 function renderContent(){
   const ci = activeTab;
-  const items = getItems(ci);
-  const {done, total} = countCat(ci);
   app.innerHTML = "";
-
-  const card = document.createElement("div"); card.className = "cat-card";
-
-  // En-tête catégorie
-  const head = document.createElement("div"); head.className = "cat-head";
-  const ring = document.createElement("div"); ring.className = "cat-ring"; ring.id = "catRing";
-  ring.style.setProperty("--p", total ? Math.round(done/total*100) : 0);
-  ring.innerHTML = '<span class="ring-ico">'+(ICONS[ci]||"•")+'</span>';
-  const ct = document.createElement("div"); ct.className = "ct";
-  const h2 = document.createElement("h2"); h2.textContent = DATA[ci][0];
-  const sub = document.createElement("div"); sub.className = "sub"; sub.id = "catSub";
-  sub.textContent = done + " sur " + total + " coché" + (done>1?"s":"");
-  ct.append(h2, sub);
-  const allBtn = document.createElement("button"); allBtn.className = "toggle-all"; allBtn.id = "catAll";
-  const allDone = total>0 && done===total;
-  allBtn.textContent = allDone ? "Tout décocher" : "Tout cocher";
-  allBtn.addEventListener("click", ()=>{
-    const target = !allDone;
-    items.forEach(it=> state[it.key] = target);
-    saveState(); renderTabs(); renderContent();
-  });
-  head.append(ring, ct, allBtn);
-  card.appendChild(head);
-
-  // Liste
-  if(items.length === 0){
-    const e = document.createElement("div"); e.className="empty";
-    e.textContent = "Aucun élément dans cette catégorie.";
-    card.appendChild(e);
-  }else{
-    const ul = document.createElement("ul"); ul.className = "items";
-    items.forEach(it=> ul.appendChild(buildRow(it, ci)));
-    card.appendChild(ul);
-  }
-
-  app.appendChild(card);
+  app.appendChild(buildCard(ci, true));
 }
 
-function buildRow(it, ci){
+function buildCard(ci, interactive){
+  const [ico, pastel, deep] = STYLE[ci] || ["•","#DDD","#666"];
+  const items = getItems(ci);
+  const {done, total} = countCat(ci);
+
+  const card = document.createElement("section");
+  card.className = "cat";
+  card.style.setProperty("--c", pastel);
+  card.style.setProperty("--d", deep);
+
+  const top = document.createElement("div"); top.className="cat-top";
+  const ic = document.createElement("div"); ic.className="cat-ico"; ic.textContent=ico;
+  const tt = document.createElement("div"); tt.className="cat-tt";
+  const h2 = document.createElement("h2"); h2.textContent = DATA[ci][0];
+  const cnt = document.createElement("div"); cnt.className="cnt"; cnt.id = interactive ? "catCnt" : "";
+  cnt.textContent = done + " sur " + total + " coché" + (done>1?"s":"");
+  tt.append(h2, cnt);
+  top.append(ic, tt);
+
+  if(interactive){
+    const allDone = total>0 && done===total;
+    const allBtn = document.createElement("button");
+    allBtn.className="all-btn"; allBtn.id="catAll";
+    allBtn.textContent = allDone ? "Tout décocher" : "Tout cocher";
+    allBtn.addEventListener("click", ()=>{
+      const target = !allDone;
+      items.forEach(it=> state[it.key] = target);
+      saveState(); renderTabs(); renderContent(); refreshCounts();
+    });
+    top.appendChild(allBtn);
+  }
+  card.appendChild(top);
+
+  if(items.length === 0){
+    const e = document.createElement("div"); e.className="empty";
+    e.textContent = "Rien ici pour l'instant !";
+    card.appendChild(e);
+  }else{
+    const ul = document.createElement("ul"); ul.className="items";
+    items.forEach(it=> ul.appendChild(buildRow(it, ci, interactive)));
+    card.appendChild(ul);
+  }
+  return card;
+}
+
+function buildRow(it, ci, interactive){
   const li = document.createElement("li");
   li.className = "item" + (state[it.key] ? " checked" : "");
 
-  const chk = document.createElement("div"); chk.className = "chk"; chk.innerHTML = checkSvg();
-  const lbl = document.createElement("div"); lbl.className = "lbl"; lbl.textContent = it.label;
+  const box = document.createElement("div"); box.className="box"; box.innerHTML = checkSvg;
+  const lbl = document.createElement("div"); lbl.className="lbl"; lbl.textContent = it.label;
+  li.append(box, lbl);
 
-  const tools = document.createElement("div"); tools.className = "tools";
-  const edit = document.createElement("button"); edit.className="t-btn edit"; edit.textContent="✎";
-  edit.setAttribute("aria-label","Modifier");
-  edit.addEventListener("click", e=>{ e.stopPropagation(); openEdit(it, ci); });
-  const del = document.createElement("button"); del.className="t-btn del"; del.textContent="✕";
-  del.setAttribute("aria-label","Supprimer");
-  del.addEventListener("click", e=>{ e.stopPropagation(); deleteItem(it, true); });
-  tools.append(edit, del);
+  if(interactive){
+    const tools = document.createElement("div"); tools.className="tools";
+    const ed = document.createElement("button"); ed.className="t-btn"; ed.textContent="✎";
+    ed.setAttribute("aria-label","Modifier");
+    ed.addEventListener("click", e=>{ e.stopPropagation(); openEdit(it, ci); });
+    const dl = document.createElement("button"); dl.className="t-btn"; dl.textContent="✕";
+    dl.setAttribute("aria-label","Supprimer");
+    dl.addEventListener("click", e=>{ e.stopPropagation(); deleteItem(it, true); });
+    tools.append(ed, dl);
+    li.appendChild(tools);
 
-  li.append(chk, lbl, tools);
-  li.addEventListener("click", ()=>{
-    state[it.key] = !state[it.key];
-    saveState();
-    li.classList.toggle("checked", !!state[it.key]);
-    refreshCounts();
-  });
+    li.addEventListener("click", ()=>{
+      state[it.key] = !state[it.key];
+      saveState();
+      li.classList.toggle("checked", !!state[it.key]);
+      refreshCounts();
+    });
+  }
   return li;
 }
 
-/* Mise à jour légère des compteurs (sans reconstruire, pour la fluidité) */
+/* ---------- Compteurs en direct ---------- */
 function refreshCounts(){
   let done=0, total=0;
   DATA.forEach((_,ci)=>{ const c=countCat(ci); done+=c.done; total+=c.total; });
-  document.getElementById("progressText").textContent = done + " / " + total;
+  document.getElementById("gTxt").textContent = done + " / " + total;
   const pct = total ? Math.round(done/total*100) : 0;
-  document.getElementById("progressPct").textContent = pct + "%";
-  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("gPct").textContent = pct + "%";
+  document.getElementById("gaugeFill").style.width = pct + "%";
 
   tabsEl.querySelectorAll(".tab").forEach(tab=>{
     const ci = +tab.dataset.ci;
     const c = countCat(ci);
-    const comp = c.total>0 && c.done===c.total;
     tab.querySelector(".t-count").textContent = c.done+"/"+c.total;
-    tab.classList.toggle("complete", comp);
+    tab.classList.toggle("done", c.total>0 && c.done===c.total);
   });
 
   const c = countCat(activeTab);
-  const ring = document.getElementById("catRing");
-  if(ring) ring.style.setProperty("--p", c.total ? Math.round(c.done/c.total*100) : 0);
-  const sub = document.getElementById("catSub");
-  if(sub) sub.textContent = c.done + " sur " + c.total + " coché" + (c.done>1?"s":"");
+  const cnt = document.getElementById("catCnt");
+  if(cnt) cnt.textContent = c.done + " sur " + c.total + " coché" + (c.done>1?"s":"");
   const allBtn = document.getElementById("catAll");
   if(allBtn) allBtn.textContent = (c.total>0 && c.done===c.total) ? "Tout décocher" : "Tout cocher";
 }
 
 function render(){ renderTabs(); renderContent(); refreshCounts(); }
 
-/* ---------- Actions globales ---------- */
+/* ---------- Actions ---------- */
 document.getElementById("resetBtn").addEventListener("click", ()=>{
   if(confirm("Tout décocher ?")){ state = {}; saveState(); render(); }
 });
+
 document.getElementById("pdfBtn").addEventListener("click", ()=>{
   const d = new Date();
   document.getElementById("printMeta").textContent =
     "Édité le " + d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
-  // Rendre toutes les catégories visibles pour l'impression
-  const cards = buildAllForPrint();
-  app.appendChild(cards);
+  const extra = document.createElement("div");
+  DATA.forEach((_,ci)=>{ if(ci !== activeTab) extra.appendChild(buildCard(ci,false)); });
+  app.appendChild(extra);
   window.print();
-  cards.remove();
+  extra.remove();
 });
 
-// Construit un bloc contenant toutes les catégories (impression uniquement)
-function buildAllForPrint(){
-  const frag = document.createElement("div");
-  frag.id = "printAll";
-  DATA.forEach((cat, ci)=>{
-    if(ci === activeTab) return; // déjà affichée à l'écran
-    const items = getItems(ci);
-    const card = document.createElement("div"); card.className="cat-card";
-    const head = document.createElement("div"); head.className="cat-head";
-    const ring = document.createElement("div"); ring.className="cat-ring";
-    const c = countCat(ci);
-    ring.style.setProperty("--p", c.total?Math.round(c.done/c.total*100):0);
-    ring.innerHTML = '<span class="ring-ico">'+(ICONS[ci]||"•")+'</span>';
-    const ct = document.createElement("div"); ct.className="ct";
-    const h2 = document.createElement("h2"); h2.textContent = cat[0];
-    ct.appendChild(h2);
-    head.append(ring, ct); card.appendChild(head);
-    const ul = document.createElement("ul"); ul.className="items";
-    items.forEach(it=>{
-      const li = document.createElement("li"); li.className="item"+(state[it.key]?" checked":"");
-      const chk = document.createElement("div"); chk.className="chk"; chk.innerHTML=checkSvg();
-      const lbl = document.createElement("div"); lbl.className="lbl"; lbl.textContent=it.label;
-      li.append(chk,lbl); ul.appendChild(li);
-    });
-    card.appendChild(ul); frag.appendChild(card);
-  });
-  return frag;
-}
-
-/* ---------- Suppression ---------- */
 function deleteItem(it, ask){
   if(ask && !confirm("Supprimer « " + it.label + " » ?")) return;
   if(it.custom){
@@ -753,41 +774,41 @@ function deleteItem(it, ask){
   render();
 }
 
-/* ---------- Feuille modale ---------- */
+/* ---------- Feuille ---------- */
 const backdrop = document.getElementById("backdrop");
 const sheet    = document.getElementById("sheet");
 const fLabel   = document.getElementById("fLabel");
 const fCat     = document.getElementById("fCat");
 const sheetTitle = document.getElementById("sheetTitle");
 const okBtn    = document.getElementById("okBtn");
-const sheetDel = document.getElementById("sheetDel");
-let mode = "add", editRef = null;
+let mode="add", editRef=null;
 
 function fillCats(sel){
   fCat.innerHTML = "";
   DATA.forEach((cat,ci)=>{
-    const o=document.createElement("option"); o.value=ci; o.textContent=(ICONS[ci]||"")+" "+cat[0];
+    const o=document.createElement("option");
+    o.value=ci; o.textContent=(STYLE[ci]?STYLE[ci][0]:"")+"  "+cat[0];
     fCat.appendChild(o);
   });
   fCat.value = sel;
 }
-function openSheet(){ backdrop.classList.add("open"); sheet.classList.add("open"); setTimeout(()=>{fLabel.focus();},120); }
+function openSheet(){ backdrop.classList.add("open"); sheet.classList.add("open"); setTimeout(()=>fLabel.focus(),120); }
 function closeSheet(){ backdrop.classList.remove("open"); sheet.classList.remove("open"); }
 
 function openAdd(){
   mode="add"; editRef=null;
   sheet.classList.remove("editing");
-  sheetTitle.textContent = "Ajouter un élément";
-  okBtn.textContent = "Ajouter";
-  fillCats(activeTab); fLabel.value = "";
+  sheetTitle.textContent="Ajouter un élément";
+  okBtn.textContent="Ajouter";
+  fillCats(activeTab); fLabel.value="";
   openSheet();
 }
 function openEdit(it, ci){
   mode="edit"; editRef={ custom:it.custom, key:it.key, ci, id:it.id };
   sheet.classList.add("editing");
-  sheetTitle.textContent = "Modifier l'élément";
-  okBtn.textContent = "Enregistrer";
-  fillCats(ci); fLabel.value = it.label;
+  sheetTitle.textContent="Modifier l'élément";
+  okBtn.textContent="Enregistrer";
+  fillCats(ci); fLabel.value=it.label;
   openSheet(); setTimeout(()=>fLabel.select(),140);
 }
 function confirmSheet(){
@@ -807,7 +828,7 @@ function confirmSheet(){
     if(removed.indexOf(editRef.key)===-1){ removed.push(editRef.key); saveRemoved(); }
     if(overrides[editRef.key]){ delete overrides[editRef.key]; saveOverrides(); }
     const id = newId(); customs.push({ id, cat:ci, label }); saveCustoms();
-    if(state[editRef.key]){ state["custom_"+id] = true; }
+    if(state[editRef.key]) state["custom_"+id] = true;
     delete state[editRef.key];
   }
   saveState();
@@ -820,11 +841,9 @@ document.getElementById("cancelBtn").addEventListener("click", closeSheet);
 okBtn.addEventListener("click", confirmSheet);
 backdrop.addEventListener("click", closeSheet);
 fLabel.addEventListener("keydown", e=>{ if(e.key==="Enter") confirmSheet(); });
-sheetDel.addEventListener("click", ()=>{
+document.getElementById("sheetDel").addEventListener("click", ()=>{
   if(!editRef) return;
-  const it = editRef.custom
-    ? { custom:true, id:editRef.id, key:editRef.key, label:fLabel.value }
-    : { custom:false, key:editRef.key, label:fLabel.value };
+  const it = { custom:editRef.custom, id:editRef.id, key:editRef.key, label:fLabel.value };
   if(confirm("Supprimer « " + fLabel.value + " » ?")){ closeSheet(); deleteItem(it, false); }
 });
 
