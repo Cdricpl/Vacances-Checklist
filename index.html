@@ -472,14 +472,18 @@ const DATA = [
     "Tente raclette","Piquets","Tonnelle","Barre de toit","Sangles",
     "Cadenas remorque","Bâches","Cordes","Table","4 chaises","2 chaises camping",
     "2 transats","Table basse","Tapis (x2)",
-    "Niveau à bulle (mise à niveau remorque)","Cales de roue"
+    "Niveau à bulle (mise à niveau remorque)","Cales de roue",
+    "Maillet","Tendeurs","Kit de réparation toile","Paillasson"
   ]],
   ["Outillage", [
     "Marteau","Jeu de clés mixtes","Jeu de tournevis cliquet à embouts","Liquide de refroidissement"
   ]],
   ["Sanitaire", [
     "Toilette chimique","Produit toilette chimique","Brosse toilette",
-    "Nécessaire de toilette, brosses à dents","Élastiques"
+    "Nécessaire de toilette, brosses à dents","Élastiques",
+    "Papier toilette","Gel douche + shampoing","Serviettes de bain",
+    "Claquettes / tongs (douches communes)","Sac à linge sale",
+    "Trousse de toilette suspendue"
   ]],
   ["Électricité", [
     "Allonge enrouleur","Allonge (x2)","Multiprise (x2)",
@@ -492,7 +496,11 @@ const DATA = [
     "Bouchons verre à vin","Couvercles silicone","Plats (x3)","Tupperware (x5)","Ouvre-boîte",
     "Papier essuie-tout, sopalin","Produit vaisselle",
     "Verres à vin","Mugs","Cafetière italienne (moka)","Saladier / bol","Couteaux",
-    "Huile d'olive","Sel / poivre / épices"
+    "Huile d'olive","Sel / poivre / épices",
+    "Casseroles","Poêle","Passoire","Économe","Râpe","Décapsuleur",
+    "Film alimentaire + papier alu","Allumettes","Gourdes",
+    "Nappe + pinces à nappe","Bassine à vaisselle",
+    "Café","Thé","Sucre"
   ]],
   ["Rangement & linge", [
     "Étagère à mannes","4 mannes à linge","Étagère (à préciser)",
@@ -506,7 +514,8 @@ const DATA = [
     "Réfrigérateur","Glacière électrique"
   ]],
   ["Confort", [
-    "Ventilateurs (x2)","Lampe de poche / frontale"
+    "Ventilateurs (x2)","Lampe de poche / frontale",
+    "Lanterne de camping","Guirlande lumineuse"
   ]],
   ["Couchage / Literie", [
     "Matelas","Couettes","Oreillers","Draps housse","Doudous enfants","Bouchons d'oreilles"
@@ -514,7 +523,8 @@ const DATA = [
   ["Sacs & affaires personnelles", [
     "Sac à dos glacière","Sac à dos rando","Sac à dos normal","Sac de courses",
     "Sacs de vêtements (x4)","Vêtements roses (Oscar / Cédric / Wivine)","Colecons",
-    "Chaussures (baskets, sandales, crocs)","Casquettes / chapeaux","Valise","Penderie (armoire toile)"
+    "Chaussures (baskets, sandales, crocs)","Casquettes / chapeaux","Valise","Penderie (armoire toile)",
+    "Maillots de bain","Serviettes de plage","Vêtements de pluie (K-way, bottes)"
   ]],
   ["Papiers & argent", [
     "Carte d'identité / passeport","Carte européenne d'assurance maladie",
@@ -526,11 +536,16 @@ const DATA = [
     "Crème solaire, après-soleil","Anti-moustique","Thermomètre, pansements"
   ]],
   ["Électronique", [
-    "Chargeurs téléphone / GPS","Batterie externe","Appareil photo"
+    "Chargeurs téléphone / GPS","Batterie externe","Appareil photo",
+    "Enceinte Bluetooth"
   ]],
   ["Enfant", [
     "Jeux / jouets, livres","Vélo + casque","Brassards ou gilet si baignade",
-    "Poupée","Ballon","Jeu de société"
+    "Poupée","Ballon","Jeu de société",
+    "Pétanque / badminton / frisbee"
+  ]],
+  ["Sécurité & véhicule", [
+    "Triangle + gilet jaune","Roue de secours + cric","Kit ampoules","Gonfleur"
   ]]
 ];
 
@@ -549,10 +564,11 @@ const STYLE = [
   ["📄","#EBD9AE","#7A5A1E"],
   ["💊","#F7BABA","#A83232"],
   ["🔋","#ABE0D2","#136B58"],
-  ["🧸","#FBDA8B","#96690A"]
+  ["🧸","#FBDA8B","#96690A"],
+  ["🦺","#CFD8E3","#3F5468"]
 ];
 
-const VERSION = "3.2";
+const VERSION = "3.3";
 const VERSION_DATE = "25/07/2026";
 const KEY = "checklist_vacances_v1";
 
