@@ -7,6 +7,13 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="theme-color" content="#FBF6EA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Checklist">
 <title>Checklist Vacances</title>
 <style>
   :root{
@@ -560,8 +567,8 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "3.4";
-const VERSION_DATE = "25/07/2026";
+const VERSION = "3.5";
+const VERSION_DATE = "26/07/2026";
 const KEY = "checklist_vacances_v1";
 
 /* ---------- Persistance ---------- */
@@ -889,6 +896,13 @@ document.getElementById("sheetDel").addEventListener("click", ()=>{
 
 document.getElementById("version").textContent = "Version " + VERSION + " — " + VERSION_DATE;
 render();
+
+/* ---------- Installation en application + hors-ligne ---------- */
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+}
 </script>
 </body>
 </html>
