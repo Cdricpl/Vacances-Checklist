@@ -567,7 +567,7 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "3.8";
+const VERSION = "3.9";
 const VERSION_DATE = "26/07/2026";
 const KEY = "checklist_vacances_v1";
 
@@ -648,6 +648,10 @@ function getItems(ci){
   customs.forEach(it=>{
     if(it.cat === ci) list.push({ key:"custom_"+it.id, label:it.label, custom:true, id:it.id });
   });
+  /* Tri alphabétique à l'affichage uniquement : les clés de sauvegarde
+     restent liées à la position d'origine dans DATA, donc les coches ne
+     bougent pas. « numeric » range « 2 transats » avant « 4 chaises ». */
+  list.sort((a,b)=> a.label.localeCompare(b.label, "fr", {sensitivity:"base", numeric:true}));
   return list;
 }
 function countCat(ci){
