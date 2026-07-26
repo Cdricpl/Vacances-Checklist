@@ -469,83 +469,80 @@
 <script>
 const DATA = [
   ["Installation & structure", [
-    "Tente raclette","Piquets","Tonnelle","Barre de toit","Sangles",
-    "Cadenas remorque","Bâches","Cordes","Table","4 chaises","2 chaises camping",
-    "2 transats","Table basse","Tapis (x2)",
-    "Niveau à bulle (mise à niveau remorque)","Cales de roue",
-    "Maillet","Tendeurs","Kit de réparation toile","Paillasson"
+    "Tente raclette","Piquets","Tonnelle",
+    "Barre de toit","Sangles","Cadenas remorque",
+    "Bâches","Cordes","Table",
+    "4 chaises","2 chaises camping","2 transats",
+    "Table basse","Tapis (x2)","Niveau à bulle (mise à niveau remorque)",
+    "Cales de roue","Maillet","Tendeurs",
+    "Kit de réparation toile","Paillasson"
   ]],
-  ["Outillage", [
-    "Marteau","Jeu de clés mixtes","Jeu de tournevis cliquet à embouts","Liquide de refroidissement"
+  ["Outillage & véhicule", [
+    "Marteau","Jeu de clés mixtes","Jeu de tournevis cliquet à embouts",
+    "Liquide de refroidissement","Triangle + gilet jaune","Roue de secours + cric",
+    "Kit ampoules","Gonfleur"
   ]],
-  ["Sanitaire", [
+  ["Hygiène & santé", [
     "Toilette chimique","Produit toilette chimique","Brosse toilette",
-    "Nécessaire de toilette, brosses à dents","Élastiques",
-    "Papier toilette","Gel douche + shampoing","Serviettes de bain",
-    "Claquettes / tongs (douches communes)","Sac à linge sale",
-    "Trousse de toilette suspendue"
+    "Nécessaire de toilette, brosses à dents","Élastiques","Papier toilette",
+    "Gel douche + shampoing","Serviettes de bain","Claquettes / tongs (douches communes)",
+    "Sac à linge sale","Trousse de toilette suspendue","Trousse de premiers secours",
+    "Médicaments habituels / ordonnances","Crème solaire, après-soleil","Anti-moustique",
+    "Thermomètre, pansements"
   ]],
-  ["Électricité", [
+  ["Électricité & électronique", [
     "Allonge enrouleur","Allonge (x2)","Multiprise (x2)",
-    "Rallonge spécifique raccordement électrique camping",
-    "Câble USB-C (x2)","Câble USB mini (x2)"
-  ]],
-  ["Cuisine", [
-    "Bonbonne de gaz","Cuisinière à gaz","Briquet long","Couverts","Assiettes","Gobelets","Tasses",
-    "Louche","Louche à pâtes","Spatule bois (x2)","Sous-plats (x2)","Planches (x2)","Tire-bouchon",
-    "Bouchons verre à vin","Couvercles silicone","Plats (x3)","Tupperware (x5)","Ouvre-boîte",
-    "Papier essuie-tout, sopalin","Produit vaisselle",
-    "Verres à vin","Mugs","Cafetière italienne (moka)","Saladier / bol","Couteaux",
-    "Huile d'olive","Sel / poivre / épices",
-    "Casseroles","Poêle","Passoire","Économe","Râpe","Décapsuleur",
-    "Film alimentaire + papier alu","Allumettes","Gourdes",
-    "Nappe + pinces à nappe","Bassine à vaisselle",
-    "Café","Thé","Sucre"
-  ]],
-  ["Rangement & linge", [
-    "Étagère à mannes","4 mannes à linge","Étagère (à préciser)",
-    "Armoire 3 compartiments (réserve nourriture)","Armoire 5 compartiments (vaisselle)",
-    "Essuies (x2)","Torchons (x3)","Éponges (x4)","Balai","Épingles à linge","Sacs poubelle",
-    "Raclette de sol","Pelle et balayette","Panier à linge / séchoir","Ciseaux",
-    "Kit couture (aiguille, fil)","Marchepied"
-  ]],
-  ["Froid", [
-    "Frigo box","Adaptateur frigo box","Glaçons refroidissants","Glaçons",
-    "Réfrigérateur","Glacière électrique"
-  ]],
-  ["Confort", [
-    "Ventilateurs (x2)","Lampe de poche / frontale",
-    "Lanterne de camping","Guirlande lumineuse"
-  ]],
-  ["Couchage / Literie", [
-    "Matelas","Couettes","Oreillers","Draps housse","Doudous enfants","Bouchons d'oreilles"
-  ]],
-  ["Sacs & affaires personnelles", [
-    "Sac à dos glacière","Sac à dos rando","Sac à dos normal","Sac de courses",
-    "Sacs de vêtements (x4)","Vêtements roses (Oscar / Cédric / Wivine)","Colecons",
-    "Chaussures (baskets, sandales, crocs)","Casquettes / chapeaux","Valise","Penderie (armoire toile)",
-    "Maillots de bain","Serviettes de plage","Vêtements de pluie (K-way, bottes)"
-  ]],
-  ["Papiers & argent", [
-    "Carte d'identité / passeport","Carte européenne d'assurance maladie",
-    "Attestation d'assurance camping / remorque","Espèces + carte bancaire",
-    "Permis de conduire, carte grise remorque"
-  ]],
-  ["Pharmacie", [
-    "Trousse de premiers secours","Médicaments habituels / ordonnances",
-    "Crème solaire, après-soleil","Anti-moustique","Thermomètre, pansements"
-  ]],
-  ["Électronique", [
+    "Rallonge spécifique raccordement électrique camping","Câble USB-C (x2)","Câble USB mini (x2)",
     "Chargeurs téléphone / GPS","Batterie externe","Appareil photo",
     "Enceinte Bluetooth"
   ]],
-  ["Enfant", [
+  ["Cuisine & froid", [
+    "Bonbonne de gaz","Cuisinière à gaz","Briquet long",
+    "Couverts","Assiettes","Gobelets",
+    "Tasses","Louche","Louche à pâtes",
+    "Spatule bois (x2)","Sous-plats (x2)","Planches (x2)",
+    "Tire-bouchon","Bouchons verre à vin","Couvercles silicone",
+    "Plats (x3)","Tupperware (x5)","Ouvre-boîte",
+    "Papier essuie-tout, sopalin","Produit vaisselle","Verres à vin",
+    "Mugs","Cafetière italienne (moka)","Saladier / bol",
+    "Couteaux","Huile d'olive","Sel / poivre / épices",
+    "Casseroles","Poêle","Passoire",
+    "Économe","Râpe","Décapsuleur",
+    "Film alimentaire + papier alu","Allumettes","Gourdes",
+    "Nappe + pinces à nappe","Bassine à vaisselle","Café",
+    "Thé","Sucre","Frigo box",
+    "Adaptateur frigo box","Glaçons refroidissants","Glaçons",
+    "Réfrigérateur","Glacière électrique"
+  ]],
+  ["Rangement & linge", [
+    "Étagère à mannes","4 mannes à linge","Étagère (à préciser)",
+    "Armoire 3 compartiments (réserve nourriture)","Armoire 5 compartiments (vaisselle)","Essuies (x2)",
+    "Torchons (x3)","Éponges (x4)","Balai",
+    "Épingles à linge","Sacs poubelle","Raclette de sol",
+    "Pelle et balayette","Panier à linge / séchoir","Ciseaux",
+    "Kit couture (aiguille, fil)","Marchepied"
+  ]],
+  ["Couchage & confort", [
+    "Matelas","Couettes","Oreillers",
+    "Draps housse","Doudous enfants","Bouchons d'oreilles",
+    "Ventilateurs (x2)","Lampe de poche / frontale","Lanterne de camping",
+    "Guirlande lumineuse"
+  ]],
+  ["Sacs & affaires personnelles", [
+    "Sac à dos glacière","Sac à dos rando","Sac à dos normal",
+    "Sac de courses","Sacs de vêtements (x4)","Vêtements roses (Oscar / Cédric / Wivine)",
+    "Colecons","Chaussures (baskets, sandales, crocs)","Casquettes / chapeaux",
+    "Valise","Penderie (armoire toile)","Maillots de bain",
+    "Serviettes de plage","Vêtements de pluie (K-way, bottes)"
+  ]],
+  ["Papiers & argent", [
+    "Carte d'identité / passeport","Carte européenne d'assurance maladie","Attestation d'assurance camping / remorque",
+    "Espèces + carte bancaire","Permis de conduire, carte grise remorque"
+  ]],
+  ["Enfant & loisirs", [
     "Jeux / jouets, livres","Vélo + casque","Brassards ou gilet si baignade",
     "Poupée","Ballon","Jeu de société",
     "Pétanque / badminton / frisbee"
-  ]],
-  ["Sécurité & véhicule", [
-    "Triangle + gilet jaune","Roue de secours + cric","Kit ampoules","Gonfleur"
   ]]
 ];
 
@@ -557,18 +554,13 @@ const STYLE = [
   ["🔌","#F7E39A","#856107"],
   ["🍳","#F9BEB4","#A8402F"],
   ["🧺","#FBD3A6","#96590F"],
-  ["❄️","#A9E4E8","#12707A"],
-  ["🌬️","#F6BFD8","#9C3567"],
   ["🛏️","#B9C7F2","#36479B"],
   ["🎒","#CBE7A4","#4E7420"],
   ["📄","#EBD9AE","#7A5A1E"],
-  ["💊","#F7BABA","#A83232"],
-  ["🔋","#ABE0D2","#136B58"],
-  ["🧸","#FBDA8B","#96690A"],
-  ["🦺","#CFD8E3","#3F5468"]
+  ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "3.3";
+const VERSION = "3.4";
 const VERSION_DATE = "25/07/2026";
 const KEY = "checklist_vacances_v1";
 
@@ -579,13 +571,45 @@ let customs   = load(KEY+"_custom", []);
 let overrides = load(KEY+"_over", {});
 let removed   = load(KEY+"_removed", []);
 let activeTab = parseInt(localStorage.getItem(KEY+"_tab") || "0", 10);
-if(isNaN(activeTab) || activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
+if(isNaN(activeTab)) activeTab = 0;   // borné après la migration ci-dessous
 
 const save = (k,v)=> localStorage.setItem(k, JSON.stringify(v));
 const saveState     = ()=> save(KEY, state);
 const saveCustoms   = ()=> save(KEY+"_custom", customs);
 const saveOverrides = ()=> save(KEY+"_over", overrides);
 const saveRemoved   = ()=> save(KEY+"_removed", removed);
+
+/* ---------- Migration : regroupement des catégories (15 -> 10) ----------
+   Les clés de sauvegarde sont indexées par position (c<catégorie>_i<élément>).
+   Le regroupement déplace les éléments, il faut donc reporter les coches,
+   renommages et suppressions sur les nouvelles positions.
+   MIG : ancien index de catégorie -> [nouvel index, décalage des éléments]  */
+const MIG = {0:[0,0], 1:[1,0], 2:[2,0], 3:[3,0], 4:[4,0], 5:[5,0], 6:[4,41], 7:[6,6],
+             8:[6,0], 9:[7,0], 10:[8,0], 11:[2,11], 12:[3,6], 13:[9,0], 14:[1,4]};
+
+(function migrate(){
+  if(localStorage.getItem(KEY+"_schema") === "2") return;
+  const remap = k=>{
+    const m = /^c(\d+)_i(\d+)$/.exec(k);
+    if(!m) return k;                       // les clés custom_ ne bougent pas
+    const t = MIG[+m[1]];
+    return t ? "c"+t[0]+"_i"+(t[1] + (+m[2])) : k;
+  };
+  const ns = {}; for(const k in state)     ns[remap(k)] = state[k];
+  const no = {}; for(const k in overrides) no[remap(k)] = overrides[k];
+  state = ns;
+  overrides = no;
+  removed = removed.map(remap);
+  customs = customs.map(it => MIG[it.cat] ? Object.assign({}, it, {cat: MIG[it.cat][0]}) : it);
+  if(MIG[activeTab]) activeTab = MIG[activeTab][0];
+  if(activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
+
+  saveState(); saveOverrides(); saveRemoved(); saveCustoms();
+  localStorage.setItem(KEY+"_tab", activeTab);
+  localStorage.setItem(KEY+"_schema", "2");
+})();
+
+if(activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
 
 /* ---------- Thème ---------- */
 const themeBtn = document.getElementById("themeBtn");
