@@ -384,7 +384,7 @@
     --sv-glass:#EDF2F8; --sv-line:#5A6B57; --sv-accent:#C0553F;
     position:fixed; inset:0; z-index:50;
     background:var(--paper);
-    overflow-y:auto; -webkit-overflow-scrolling:touch;
+    overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch;
     transform:translateY(100%);
     transition:transform .34s var(--ease);
     visibility:hidden;
@@ -464,13 +464,12 @@
     padding:2px 8px; margin-left:8px; vertical-align:middle;
   }
   .spec-id{margin-top:14px;}
-  .spec-id td:last-child{white-space:normal;}   /* libellés longs : on laisse passer à la ligne */
   .spec-cap.sv-warn{
     color:var(--sv-accent); font-weight:600; line-height:1.35;
   }
 
   .spec-tbl{
-    width:100%; border-collapse:collapse;
+    width:100%; table-layout:fixed; border-collapse:collapse;
     background:var(--card); border:1px solid var(--line);
     border-radius:10px; overflow:hidden;
     font-size:.88rem;
@@ -478,7 +477,9 @@
   .spec-tbl td{padding:9px 12px; border-bottom:1px solid var(--line);}
   .spec-tbl tr:last-child td{border-bottom:none;}
   .spec-tbl td:first-child{color:var(--ink-soft);}
-  .spec-tbl td:last-child{text-align:right; font-weight:600; white-space:nowrap;}
+  .spec-tbl td:first-child{width:56%;}
+  .spec-tbl td:last-child{text-align:right; font-weight:600;}
+  .spec-tbl td{overflow-wrap:anywhere;}
 
   /* ================= Impression ================= */
   .print-header{display:none;}
@@ -671,37 +672,6 @@
       <div class="spec-cap">Largeur voiture <b>1,83 m</b> · <b>2,00 m</b> rétroviseurs déployés</div>
     </div>
 
-    <!-- ---- Vue de côté : hauteurs ---- -->
-    <h3>Vue de côté — hauteurs</h3>
-    <div class="spec-fig">
-      <svg viewBox="0 0 560 230" role="img" aria-label="Vue de côté de la voiture chargée, hauteurs">
-        <line x1="20" y1="196" x2="540" y2="196" stroke="var(--sv-line)" stroke-width="2"/>
-        <!-- voiture de profil -->
-        <path d="M70 196 V150 Q70 140 82 138 L120 132 L162 108 L250 106 L300 132 L352 140 Q364 142 364 152 V196 Z"
-              fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
-        <circle cx="118" cy="196" r="17" fill="var(--sv-line)"/>
-        <circle cx="316" cy="196" r="17" fill="var(--sv-line)"/>
-        <!-- coffre de toit -->
-        <rect x="172" y="86" width="120" height="20" rx="9" fill="var(--sv-tr)" stroke="var(--sv-line)" stroke-width="2"/>
-        <!-- vélo sur le rail -->
-        <g stroke="var(--sv-accent)" stroke-width="2.5" fill="none">
-          <circle cx="322" cy="70" r="16"/><circle cx="392" cy="70" r="16"/>
-          <path d="M322 70 L350 44 L392 70 M350 44 L366 70 M336 52 H358"/>
-        </g>
-        <rect x="300" y="100" width="110" height="8" rx="4" fill="var(--sv-line)"/>
-
-        <g class="sv-dim">
-          <path d="M46 106 V196 M40 106 h12 M40 196 h12"/>
-          <path d="M150 86 V196 M144 86 h12 M144 196 h12"/>
-          <path d="M446 52 V196 M440 52 h12 M440 196 h12"/>
-        </g>
-        <text x="34" y="150" class="sv-t" transform="rotate(-90 34 150)">1,47 m</text>
-        <text x="138" y="140" class="sv-t" transform="rotate(-90 138 140)">≈ 1,90 m</text>
-        <text x="466" y="124" class="sv-t" transform="rotate(-90 466 124)">≈ 2,60 m</text>
-      </svg>
-      <div class="spec-cap sv-warn">⚠️ Avec un vélo sur le toit, plus de 2 m : attention aux parkings et barrières de hauteur</div>
-    </div>
-
     <!-- ---- Vue du dessus : tente montée ---- -->
     <h3>Vue du dessus — tente montée</h3>
     <div class="spec-fig">
@@ -806,18 +776,19 @@
 <script>
 const DATA = [
   ["Installation & structure", [
-    "Tente raclette","Piquets","Tonnelle",
-    "Barre de toit","Sangles","Cadenas remorque",
-    "Bâches","Cordes","Table",
-    "4 chaises","2 chaises camping","2 transats",
-    "Table basse","Tapis (x2)","Niveau à bulle (mise à niveau remorque)",
-    "Cales de roue","Maillet","Tendeurs",
-    "Kit de réparation toile","Paillasson"
+    "Tente Air Seconds 6.3 XXL","Piquets","Tonnelle",
+    "Barre de toit","Sangles","Bâches",
+    "Cordes","Table","4 chaises",
+    "2 chaises camping","2 transats","Table basse",
+    "Tapis (x2)","Maillet","Tendeurs",
+    "Kit de réparation gonflable (rustines)","Paillasson"
   ]],
   ["Outillage & véhicule", [
     "Marteau","Jeu de clés mixtes","Jeu de tournevis cliquet à embouts",
     "Liquide de refroidissement","Triangle + gilet jaune","Roue de secours + cric",
-    "Kit ampoules","Gonfleur"
+    "Kit ampoules","Gonfleur",
+    "Sangles coffre de toit","Clé du coffre de toit",
+    "Plaque d'immatriculation porte-vélo","Feux du porte-vélo","Antivol vélos"
   ]],
   ["Hygiène & santé", [
     "Toilette chimique","Produit toilette chimique","Brosse toilette",
@@ -873,8 +844,8 @@ const DATA = [
     "Serviettes de plage","Vêtements de pluie (K-way, bottes)"
   ]],
   ["Papiers & argent", [
-    "Carte d'identité / passeport","Carte européenne d'assurance maladie","Attestation d'assurance camping / remorque",
-    "Espèces + carte bancaire","Permis de conduire, carte grise remorque"
+    "Carte d'identité / passeport","Carte européenne d'assurance maladie","Attestation d'assurance camping",
+    "Espèces + carte bancaire","Permis de conduire, carte grise"
   ]],
   ["Enfant & loisirs", [
     "Jeux / jouets, livres","Vélo + casque","Brassards ou gilet si baignade",
@@ -897,7 +868,7 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "4.4";
+const VERSION = "4.5";
 const VERSION_DATE = "26/07/2026";
 const KEY = "checklist_vacances_v1";
 
@@ -924,8 +895,13 @@ const saveRemoved   = ()=> save(KEY+"_removed", removed);
 const MIG = {0:[0,0], 1:[1,0], 2:[2,0], 3:[3,0], 4:[4,0], 5:[5,0], 6:[4,41], 7:[6,6],
              8:[6,0], 9:[7,0], 10:[8,0], 11:[2,11], 12:[3,6], 13:[9,0], 14:[1,4]};
 
+/* Le numéro de schéma est comparé numériquement : une migration passée ne
+   doit jamais se rejouer quand une migration plus récente s'ajoute. */
+let schema = parseInt(localStorage.getItem(KEY+"_schema") || "1", 10);
+if(isNaN(schema)) schema = 1;
+
 (function migrate(){
-  if(localStorage.getItem(KEY+"_schema") === "2") return;
+  if(schema >= 2) return;
   const remap = k=>{
     const m = /^c(\d+)_i(\d+)$/.exec(k);
     if(!m) return k;                       // les clés custom_ ne bougent pas
@@ -944,6 +920,34 @@ const MIG = {0:[0,0], 1:[1,0], 2:[2,0], 3:[3,0], 4:[4,0], 5:[5,0], 6:[4,41], 7:[
   saveState(); saveOverrides(); saveRemoved(); saveCustoms();
   localStorage.setItem(KEY+"_tab", activeTab);
   localStorage.setItem(KEY+"_schema", "2");
+  schema = 2;
+})();
+
+/* ---------- Migration : abandon de la remorque ----------
+   « Installation & structure » perd le cadenas de remorque, le niveau à
+   bulle et les cales de roue ; les éléments suivants remontent, il faut
+   donc reporter les coches sur les nouvelles positions.
+   MIG_C0 : ancien index -> nouvel index ; absent = élément supprimé.  */
+const MIG_C0 = {0:0, 1:1, 2:2, 3:3, 4:4, 6:5, 7:6, 8:7, 9:8, 10:9,
+                11:10, 12:11, 13:12, 16:13, 17:14, 18:15, 19:16};
+
+(function migrateSansRemorque(){
+  if(schema >= 3) return;
+  const remap = k=>{
+    const m = /^c0_i(\d+)$/.exec(k);
+    if(!m) return k;                       // les autres catégories ne bougent pas
+    const n = MIG_C0[+m[1]];
+    return n === undefined ? null : "c0_i"+n;   // null = élément supprimé
+  };
+  const ns = {}; for(const k in state){     const nk=remap(k); if(nk) ns[nk]=state[k]; }
+  const no = {}; for(const k in overrides){ const nk=remap(k); if(nk) no[nk]=overrides[k]; }
+  state = ns;
+  overrides = no;
+  removed = removed.map(remap).filter(Boolean);
+
+  saveState(); saveOverrides(); saveRemoved();
+  localStorage.setItem(KEY+"_schema", "3");
+  schema = 3;
 })();
 
 if(activeTab < 0 || activeTab >= DATA.length) activeTab = 0;
