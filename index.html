@@ -464,6 +464,10 @@
     padding:2px 8px; margin-left:8px; vertical-align:middle;
   }
   .spec-id{margin-top:14px;}
+  .spec-id td:last-child{white-space:normal;}   /* libellés longs : on laisse passer à la ligne */
+  .spec-cap.sv-warn{
+    color:var(--sv-accent); font-weight:600; line-height:1.35;
+  }
 
   .spec-tbl{
     width:100%; border-collapse:collapse;
@@ -620,111 +624,134 @@
     </div>
 
     <table class="spec-tbl spec-id">
-      <tr><td>Marque</td><td>Raclet</td></tr>
-      <tr><td>Modèle</td><td>Iris 230</td></tr>
-      <tr><td>Type</td><td>Caravane pliante (tente-remorque)</td></tr>
-      <tr><td>Voiture tractante</td><td>Škoda Octavia Combi</td></tr>
+      <tr><td>Tente</td><td>Quechua Air Seconds 6.3 XXL</td></tr>
+      <tr><td>Type</td><td>Gonflable, 6 places, 3 chambres</td></tr>
+      <tr><td>Voiture</td><td>Škoda Octavia Combi</td></tr>
+      <tr><td>Portage</td><td>Coffre de toit · rail vélo · porte-vélo 3 vélos</td></tr>
     </table>
 
     <p class="spec-note">
-      Les <b>masses</b> sont relevées sur la plaque constructeur, les <b>couchages</b> et
-      l'<b>encombrement déployé</b> viennent de la documentation Raclet.
-      Les cotes marquées <i>≈</i> restent à confirmer au mètre ruban.
+      Sans remorque : tout voyage sur et derrière la voiture.
+      Les valeurs Decathlon et Škoda sont celles des constructeurs ; les cotes
+      des accessoires, marquées <i>≈</i>, dépendent des modèles exacts et
+      restent à confirmer au mètre ruban.
     </p>
 
-    <!-- ---- Vue du dessus : ensemble attelé ---- -->
-    <h3>Vue du dessus — ensemble attelé</h3>
+    <!-- ---- Vue du dessus : voiture équipée ---- -->
+    <h3>Vue du dessus — voiture équipée</h3>
     <div class="spec-fig">
-      <svg viewBox="0 0 560 210" role="img" aria-label="Vue de dessus de la voiture avec la remorque attelée">
-        <g>
-          <rect x="14" y="46" width="282" height="110" rx="26" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
-          <path d="M104 52 L150 52 L142 150 L104 150 Z" fill="var(--sv-glass)"/>
-          <rect x="168" y="58" width="96" height="86" rx="10" fill="var(--sv-glass)"/>
-          <rect x="60" y="74" width="8" height="54" rx="3" fill="var(--sv-glass)"/>
-          <rect x="88" y="34" width="16" height="10" rx="3" fill="var(--sv-line)"/>
-          <rect x="88" y="158" width="16" height="10" rx="3" fill="var(--sv-line)"/>
-          <text x="155" y="106" class="sv-in">Octavia Combi</text>
-        </g>
-        <path d="M296 101 L370 78 M296 101 L370 124" stroke="var(--sv-line)" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <circle cx="300" cy="101" r="7" fill="var(--sv-accent)"/>
-        <rect x="370" y="55" width="138" height="93" rx="8" fill="var(--sv-tr)" stroke="var(--sv-line)" stroke-width="2"/>
-        <rect x="384" y="66" width="110" height="32" rx="5" fill="var(--sv-glass)"/>
-        <rect x="358" y="60" width="14" height="26" rx="4" fill="var(--sv-line)"/>
-        <rect x="358" y="117" width="14" height="26" rx="4" fill="var(--sv-line)"/>
-        <text x="439" y="128" class="sv-in">Iris 230</text>
+      <svg viewBox="0 0 560 200" role="img" aria-label="Vue de dessus de la voiture avec porte-vélo">
+        <!-- coffre de toit (sur le toit) -->
+        <rect x="96" y="62" width="118" height="78" rx="12" fill="var(--sv-tr)" stroke="var(--sv-line)" stroke-width="2" opacity=".9"/>
+        <text x="155" y="106" class="sv-in sv-sm">Coffre de toit</text>
+        <!-- voiture -->
+        <rect x="14" y="46" width="282" height="110" rx="26" fill="none" stroke="var(--sv-line)" stroke-width="2.5"/>
+        <rect x="228" y="58" width="58" height="86" rx="10" fill="var(--sv-glass)"/>
+        <rect x="88" y="34" width="16" height="10" rx="3" fill="var(--sv-line)"/>
+        <rect x="88" y="158" width="16" height="10" rx="3" fill="var(--sv-line)"/>
+        <!-- rail vélo sur le toit -->
+        <path d="M226 74 H286 M226 128 H286" stroke="var(--sv-accent)" stroke-width="3" stroke-linecap="round"/>
+        <text x="256" y="106" class="sv-in sv-sm">Rail vélo</text>
+        <!-- porte-vélo 3 vélos -->
+        <rect x="300" y="34" width="44" height="134" rx="7" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
+        <path d="M308 46 H336 M308 101 H336 M308 156 H336" stroke="var(--sv-line)" stroke-width="3" stroke-linecap="round"/>
+        <text x="322" y="186" class="sv-in sv-sm">3 vélos</text>
 
         <g class="sv-dim">
-          <path d="M14 182 H296 M14 176 v12 M296 176 v12"/>
-          <path d="M300 182 H370 M300 176 v12 M370 176 v12"/>
-          <path d="M370 182 H508 M370 176 v12 M508 176 v12"/>
-          <path d="M524 46 V156 M518 46 h12 M518 156 h12"/>
+          <path d="M14 20 H296 M14 14 v12 M296 14 v12"/>
+          <path d="M300 20 H344 M300 14 v12 M344 14 v12"/>
+          <path d="M360 34 V168 M354 34 h12 M354 168 h12"/>
         </g>
-        <text x="155" y="200" class="sv-t">4,70 m</text>
-        <text x="335" y="200" class="sv-t">≈ 1,30 m</text>
-        <text x="439" y="200" class="sv-t">≈ 2,30 m</text>
-        <text x="536" y="105" class="sv-t" transform="rotate(-90 536 105)">1,83 m</text>
+        <text x="155" y="12" class="sv-t">4,70 m</text>
+        <text x="322" y="12" class="sv-t">≈ 0,70 m</text>
+        <text x="372" y="101" class="sv-t" transform="rotate(-90 372 101)">≈ 1,30 m</text>
+        <text x="450" y="80" class="sv-t sv-acc">Longueur totale</text>
+        <text x="450" y="100" class="sv-t sv-acc" style="font-size:15px">≈ 5,40 m</text>
       </svg>
-      <div class="spec-cap">Longueur totale attelée : <b>≈ 8,30 m</b></div>
+      <div class="spec-cap">Largeur voiture <b>1,83 m</b> · <b>2,00 m</b> rétroviseurs déployés</div>
     </div>
 
-    <!-- ---- Vue du dessus : tente déployée ---- -->
-    <h3>Vue du dessus — tente déployée</h3>
+    <!-- ---- Vue de côté : hauteurs ---- -->
+    <h3>Vue de côté — hauteurs</h3>
     <div class="spec-fig">
-      <svg viewBox="0 0 320 322" role="img" aria-label="Vue de dessus de la tente déployée avec la voiture">
-        <rect x="26" y="10" width="270" height="270" fill="none"
-              stroke="var(--sv-accent)" stroke-width="2" stroke-dasharray="7 6" rx="6"/>
-        <text x="32" y="28" class="sv-t sv-acc">Emplacement conseillé 6 × 6 m</text>
-
-        <rect x="34" y="38" width="171" height="189" rx="6" fill="var(--sv-tent)" stroke="var(--sv-line)" stroke-width="2"/>
-        <rect x="34" y="38" width="171" height="95" fill="var(--sv-tr)" opacity=".55"/>
-        <line x1="34" y1="133" x2="205" y2="133" stroke="var(--sv-line)" stroke-width="2" stroke-dasharray="5 5"/>
-        <text x="119" y="80" class="sv-in">2 chambres</text>
-        <text x="119" y="90" class="sv-in sv-sm">148 × 190 cm</text>
-        <text x="119" y="185" class="sv-in">Séjour / auvent</text>
-
-        <rect x="212" y="42" width="82" height="212" rx="20" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
-        <rect x="224" y="78" width="58" height="42" rx="8" fill="var(--sv-glass)"/>
-        <rect x="224" y="132" width="58" height="34" rx="7" fill="var(--sv-glass)"/>
-        <text x="253" y="212" class="sv-in">Auto</text>
+      <svg viewBox="0 0 560 230" role="img" aria-label="Vue de côté de la voiture chargée, hauteurs">
+        <line x1="20" y1="196" x2="540" y2="196" stroke="var(--sv-line)" stroke-width="2"/>
+        <!-- voiture de profil -->
+        <path d="M70 196 V150 Q70 140 82 138 L120 132 L162 108 L250 106 L300 132 L352 140 Q364 142 364 152 V196 Z"
+              fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
+        <circle cx="118" cy="196" r="17" fill="var(--sv-line)"/>
+        <circle cx="316" cy="196" r="17" fill="var(--sv-line)"/>
+        <!-- coffre de toit -->
+        <rect x="172" y="86" width="120" height="20" rx="9" fill="var(--sv-tr)" stroke="var(--sv-line)" stroke-width="2"/>
+        <!-- vélo sur le rail -->
+        <g stroke="var(--sv-accent)" stroke-width="2.5" fill="none">
+          <circle cx="322" cy="70" r="16"/><circle cx="392" cy="70" r="16"/>
+          <path d="M322 70 L350 44 L392 70 M350 44 L366 70 M336 52 H358"/>
+        </g>
+        <rect x="300" y="100" width="110" height="8" rx="4" fill="var(--sv-line)"/>
 
         <g class="sv-dim">
-          <path d="M34 290 H205 M34 284 v12 M205 284 v12"/>
-          <path d="M18 38 V227 M12 38 h12 M12 227 h12"/>
+          <path d="M46 106 V196 M40 106 h12 M40 196 h12"/>
+          <path d="M150 86 V196 M144 86 h12 M144 196 h12"/>
+          <path d="M446 52 V196 M440 52 h12 M440 196 h12"/>
         </g>
-        <text x="119" y="308" class="sv-t">3,80 m</text>
-        <text x="10" y="132" class="sv-t" transform="rotate(-90 10 132)">4,20 m</text>
+        <text x="34" y="150" class="sv-t" transform="rotate(-90 34 150)">1,47 m</text>
+        <text x="138" y="140" class="sv-t" transform="rotate(-90 138 140)">≈ 1,90 m</text>
+        <text x="466" y="124" class="sv-t" transform="rotate(-90 466 124)">≈ 2,60 m</text>
       </svg>
-      <div class="spec-cap">Avec auvent : <b>≈ 16 m²</b> · sans auvent 3,80 × 2,10 m</div>
+      <div class="spec-cap sv-warn">⚠️ Avec un vélo sur le toit, plus de 2 m : attention aux parkings et barrières de hauteur</div>
+    </div>
+
+    <!-- ---- Vue du dessus : tente montée ---- -->
+    <h3>Vue du dessus — tente montée</h3>
+    <div class="spec-fig">
+      <svg viewBox="0 0 360 330" role="img" aria-label="Vue de dessus de la tente montée avec la voiture">
+        <rect x="24" y="10" width="288" height="288" fill="none"
+              stroke="var(--sv-accent)" stroke-width="2" stroke-dasharray="7 6" rx="6"/>
+        <text x="30" y="28" class="sv-t sv-acc">Emplacement conseillé 8 × 8 m</text>
+
+        <!-- tente : séjour + 3 chambres -->
+        <rect x="40" y="46" width="166" height="198" rx="10" fill="var(--sv-tent)" stroke="var(--sv-line)" stroke-width="2"/>
+        <rect x="40" y="46" width="166" height="76" fill="var(--sv-tr)" opacity=".55"/>
+        <line x1="40" y1="122" x2="206" y2="122" stroke="var(--sv-line)" stroke-width="2" stroke-dasharray="5 5"/>
+        <path d="M95 46 V122 M151 46 V122" stroke="var(--sv-line)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="123" y="80" class="sv-in sv-sm">3 chambres</text>
+        <text x="123" y="94" class="sv-in sv-sm">210 × 140 cm</text>
+        <text x="123" y="190" class="sv-in">Séjour 12 m²</text>
+
+        <!-- voiture -->
+        <rect x="228" y="60" width="66" height="170" rx="16" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
+        <rect x="238" y="90" width="46" height="34" rx="7" fill="var(--sv-glass)"/>
+        <rect x="238" y="132" width="46" height="28" rx="6" fill="var(--sv-glass)"/>
+        <text x="261" y="196" class="sv-in sv-sm">Auto</text>
+
+        <g class="sv-dim">
+          <path d="M40 308 H206 M40 302 v12 M206 302 v12"/>
+          <path d="M22 46 V244 M16 46 h12 M16 244 h12"/>
+        </g>
+        <text x="123" y="324" class="sv-t">≈ 4,60 m</text>
+        <text x="12" y="145" class="sv-t" transform="rotate(-90 12 145)">≈ 5,50 m</text>
+      </svg>
+      <div class="spec-cap">Surface haubans compris : <b>49 m²</b> (source Decathlon)</div>
     </div>
 
     <!-- ---- Tableaux ---- -->
-    <h3>Masses <span class="spec-src">plaque constructeur</span></h3>
+    <h3>Tente montée <span class="spec-src">Decathlon</span></h3>
     <table class="spec-tbl">
-      <tr><td>PTAC (masse maximale en charge)</td><td>495 kg</td></tr>
-      <tr><td>Essieu 1</td><td>495 kg</td></tr>
-      <tr><td>Charge maximale sur la boule</td><td>20 kg</td></tr>
+      <tr><td>Capacité</td><td>6 personnes</td></tr>
+      <tr><td>Chambres</td><td>3 × 210 × 140 cm</td></tr>
+      <tr><td>Séjour</td><td>12 m²</td></tr>
+      <tr><td>Hauteur sous plafond (séjour)</td><td>2,30 m</td></tr>
+      <tr><td>Surface haubans compris</td><td>49 m²</td></tr>
+      <tr><td>Emprise au sol de la tente</td><td>≈ 5,50 × 4,60 m</td></tr>
     </table>
 
-    <h3>Couchage <span class="spec-src">documentation Raclet</span></h3>
+    <h3>Tente pliée <span class="spec-src">Decathlon</span></h3>
     <table class="spec-tbl">
-      <tr><td>Capacité</td><td>4 à 5 personnes</td></tr>
-      <tr><td>Chambres sur plateau</td><td>2 × 148 × 190 cm</td></tr>
-      <tr><td>Chambre sous plateau</td><td>1 personne</td></tr>
-    </table>
-
-    <h3>Tente déployée <span class="spec-src">documentation Raclet</span></h3>
-    <table class="spec-tbl">
-      <tr><td>Sans auvent</td><td>3,80 × 2,10 m</td></tr>
-      <tr><td>Avec auvent</td><td>3,80 × 4,20 m</td></tr>
-      <tr><td>Surface avec auvent</td><td>≈ 16 m²</td></tr>
-    </table>
-
-    <h3>Remorque fermée <span class="spec-src">à mesurer</span></h3>
-    <table class="spec-tbl">
-      <tr><td>Longueur de caisse</td><td>≈ 2,30 m</td></tr>
-      <tr><td>Largeur (garde-boue compris)</td><td>≈ 1,55 m</td></tr>
-      <tr><td>Hauteur avec le coffre de toit</td><td>≈ 1,60 m</td></tr>
-      <tr><td>Longueur du timon (boule → caisse)</td><td>≈ 1,30 m</td></tr>
+      <tr><td>Sac de transport (à roulettes)</td><td>97 × 48 × 53 cm</td></tr>
+      <tr><td>Volume du sac</td><td>247 L</td></tr>
+      <tr><td>Poids de la tente</td><td>40,3 kg</td></tr>
+      <tr><td>Poids avec sac et tapis</td><td>45,9 kg</td></tr>
     </table>
 
     <h3>Voiture — Škoda Octavia Combi</h3>
@@ -732,20 +759,26 @@
       <tr><td>Longueur</td><td>4,70 m</td></tr>
       <tr><td>Largeur (hors rétroviseurs)</td><td>1,83 m</td></tr>
       <tr><td>Largeur (rétroviseurs déployés)</td><td>≈ 2,00 m</td></tr>
-      <tr><td>Hauteur</td><td>1,47 m</td></tr>
+      <tr><td>Hauteur à vide</td><td>1,47 m</td></tr>
       <tr><td>Empattement</td><td>2,69 m</td></tr>
     </table>
 
-    <h3>Ensemble attelé</h3>
+    <h3>Portage <span class="spec-src">à confirmer</span></h3>
     <table class="spec-tbl">
-      <tr><td>Longueur totale (voiture + remorque)</td><td><b>≈ 8,30 m</b></td></tr>
-      <tr><td>Emplacement de camping conseillé</td><td>6 × 6 m minimum</td></tr>
+      <tr><td>Hauteur avec le coffre de toit</td><td>≈ 1,90 m</td></tr>
+      <tr><td>Hauteur avec un vélo sur le rail</td><td>≈ 2,60 m</td></tr>
+      <tr><td>Débord du porte-vélo à l'arrière</td><td>≈ 0,70 m</td></tr>
+      <tr><td>Largeur du porte-vélo chargé</td><td>≈ 1,30 m</td></tr>
+      <tr><td>Longueur totale de l'attelage</td><td><b>≈ 5,40 m</b></td></tr>
     </table>
 
     <p class="spec-note spec-todo">
-      <b>Attention à la charge sur la boule :</b> la plaque indique 20 kg au maximum.
-      Répartissez le chargement vers l'essieu, pas vers l'avant.
-      Reste à relever : poids à vide réel, dimension et pression des pneus.
+      <b>Deux limites à vérifier avant de charger :</b><br>
+      • <b>Charge de toit</b> — environ 75 kg sur l'Octavia. Coffre (≈ 15 kg) + barres
+      (≈ 5 kg) + vélo (≈ 15 kg) laissent peu de marge pour le contenu du coffre.<br>
+      • <b>Charge sur la boule</b> — lisez la valeur S sur la plaque de l'attelage.
+      Un porte-vélo 3 vélos chargé pèse souvent 60 kg et plus.<br>
+      Pensez aussi à la <b>plaque et aux feux répétiteurs</b> obligatoires sur le porte-vélo.
     </p>
   </div>
 </div>
@@ -864,7 +897,7 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "4.3";
+const VERSION = "4.4";
 const VERSION_DATE = "26/07/2026";
 const KEY = "checklist_vacances_v1";
 
