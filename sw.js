@@ -3,7 +3,7 @@
    dernière version publiée quand il y a du réseau, et la dernière version
    consultée quand il n'y en a pas (utile au camping). */
 
-const CACHE = "checklist-vacances-v3.8";
+const CACHE = "checklist-vacances-v4.1";
 
 const ASSETS = [
   "./",
