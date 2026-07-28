@@ -455,6 +455,15 @@
     font-family:var(--body); font-size:12px; font-weight:600;
     fill:var(--ink); text-anchor:middle; opacity:.75;
   }
+  .sv-in.sv-sm{font-size:9px; font-weight:500; opacity:.6;}
+  .spec-src{
+    font-family:var(--body); font-size:.66rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:.4px;
+    color:var(--ink-soft); background:var(--card);
+    border:1px solid var(--line); border-radius:20px;
+    padding:2px 8px; margin-left:8px; vertical-align:middle;
+  }
+  .spec-id{margin-top:14px;}
 
   .spec-tbl{
     width:100%; border-collapse:collapse;
@@ -610,17 +619,23 @@
       <button class="spec-close" id="specClose" aria-label="Fermer">✕</button>
     </div>
 
+    <table class="spec-tbl spec-id">
+      <tr><td>Marque</td><td>Raclet</td></tr>
+      <tr><td>Modèle</td><td>Iris 230</td></tr>
+      <tr><td>Type</td><td>Caravane pliante (tente-remorque)</td></tr>
+      <tr><td>Voiture tractante</td><td>Škoda Octavia Combi</td></tr>
+    </table>
+
     <p class="spec-note">
-      <b>Valeurs indicatives.</b> Les cotes de la Škoda Octavia Combi sont celles du
-      constructeur. Celles de la tente-remorque sont estimées d'après un modèle Raclet
-      comparable : à confirmer au mètre ruban ou sur la plaque constructeur.
+      Les <b>masses</b> sont relevées sur la plaque constructeur, les <b>couchages</b> et
+      l'<b>encombrement déployé</b> viennent de la documentation Raclet.
+      Les cotes marquées <i>≈</i> restent à confirmer au mètre ruban.
     </p>
 
     <!-- ---- Vue du dessus : ensemble attelé ---- -->
     <h3>Vue du dessus — ensemble attelé</h3>
     <div class="spec-fig">
       <svg viewBox="0 0 560 210" role="img" aria-label="Vue de dessus de la voiture avec la remorque attelée">
-        <!-- voiture -->
         <g>
           <rect x="14" y="46" width="282" height="110" rx="26" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
           <path d="M104 52 L150 52 L142 150 L104 150 Z" fill="var(--sv-glass)"/>
@@ -630,65 +645,88 @@
           <rect x="88" y="158" width="16" height="10" rx="3" fill="var(--sv-line)"/>
           <text x="155" y="106" class="sv-in">Octavia Combi</text>
         </g>
-        <!-- timon -->
         <path d="M296 101 L370 78 M296 101 L370 124" stroke="var(--sv-line)" stroke-width="5" stroke-linecap="round" fill="none"/>
         <circle cx="300" cy="101" r="7" fill="var(--sv-accent)"/>
-        <!-- remorque -->
-        <rect x="370" y="55" width="150" height="93" rx="8" fill="var(--sv-tr)" stroke="var(--sv-line)" stroke-width="2"/>
-        <rect x="386" y="66" width="118" height="34" rx="5" fill="var(--sv-glass)"/>
+        <rect x="370" y="55" width="138" height="93" rx="8" fill="var(--sv-tr)" stroke="var(--sv-line)" stroke-width="2"/>
+        <rect x="384" y="66" width="110" height="32" rx="5" fill="var(--sv-glass)"/>
         <rect x="358" y="60" width="14" height="26" rx="4" fill="var(--sv-line)"/>
         <rect x="358" y="117" width="14" height="26" rx="4" fill="var(--sv-line)"/>
-        <text x="445" y="128" class="sv-in">Remorque</text>
+        <text x="439" y="128" class="sv-in">Iris 230</text>
 
-        <!-- cotes -->
         <g class="sv-dim">
           <path d="M14 182 H296 M14 176 v12 M296 176 v12"/>
           <path d="M300 182 H370 M300 176 v12 M370 176 v12"/>
-          <path d="M370 182 H520 M370 176 v12 M520 176 v12"/>
-          <path d="M534 46 V156 M528 46 h12 M528 156 h12"/>
+          <path d="M370 182 H508 M370 176 v12 M508 176 v12"/>
+          <path d="M524 46 V156 M518 46 h12 M518 156 h12"/>
         </g>
         <text x="155" y="200" class="sv-t">4,70 m</text>
-        <text x="335" y="200" class="sv-t">1,30 m</text>
-        <text x="445" y="200" class="sv-t">2,50 m</text>
-        <text x="546" y="105" class="sv-t sv-rot" transform="rotate(-90 546 105)">1,83 m</text>
+        <text x="335" y="200" class="sv-t">≈ 1,30 m</text>
+        <text x="439" y="200" class="sv-t">≈ 2,30 m</text>
+        <text x="536" y="105" class="sv-t" transform="rotate(-90 536 105)">1,83 m</text>
       </svg>
-      <div class="spec-cap">Longueur totale attelée : <b>≈ 8,50 m</b></div>
+      <div class="spec-cap">Longueur totale attelée : <b>≈ 8,30 m</b></div>
     </div>
 
     <!-- ---- Vue du dessus : tente déployée ---- -->
     <h3>Vue du dessus — tente déployée</h3>
     <div class="spec-fig">
-      <svg viewBox="0 0 400 332" role="img" aria-label="Vue de dessus de la tente déployée avec la voiture">
-        <!-- emplacement conseillé : 8 × 6 m -->
-        <rect x="30" y="10" width="360" height="270" fill="none"
+      <svg viewBox="0 0 320 322" role="img" aria-label="Vue de dessus de la tente déployée avec la voiture">
+        <rect x="26" y="10" width="270" height="270" fill="none"
               stroke="var(--sv-accent)" stroke-width="2" stroke-dasharray="7 6" rx="6"/>
-        <text x="36" y="28" class="sv-t sv-acc">Emplacement conseillé 8 × 6 m</text>
+        <text x="32" y="28" class="sv-t sv-acc">Emplacement conseillé 6 × 6 m</text>
 
-        <!-- tente : chambres (sur la remorque) + séjour / auvent -->
-        <rect x="36" y="40" width="261" height="225" rx="6" fill="var(--sv-tent)" stroke="var(--sv-line)" stroke-width="2"/>
-        <rect x="36" y="40" width="261" height="86" fill="var(--sv-tr)" opacity=".55"/>
-        <line x1="36" y1="126" x2="297" y2="126" stroke="var(--sv-line)" stroke-width="2" stroke-dasharray="5 5"/>
-        <text x="166" y="90" class="sv-in">Chambres</text>
-        <text x="166" y="200" class="sv-in">Séjour / auvent</text>
+        <rect x="34" y="38" width="171" height="189" rx="6" fill="var(--sv-tent)" stroke="var(--sv-line)" stroke-width="2"/>
+        <rect x="34" y="38" width="171" height="95" fill="var(--sv-tr)" opacity=".55"/>
+        <line x1="34" y1="133" x2="205" y2="133" stroke="var(--sv-line)" stroke-width="2" stroke-dasharray="5 5"/>
+        <text x="119" y="80" class="sv-in">2 chambres</text>
+        <text x="119" y="90" class="sv-in sv-sm">148 × 190 cm</text>
+        <text x="119" y="185" class="sv-in">Séjour / auvent</text>
 
-        <!-- voiture garée le long -->
-        <rect x="302" y="44" width="82" height="212" rx="20" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
-        <rect x="314" y="80" width="58" height="42" rx="8" fill="var(--sv-glass)"/>
-        <rect x="314" y="134" width="58" height="34" rx="7" fill="var(--sv-glass)"/>
-        <text x="343" y="215" class="sv-in">Auto</text>
+        <rect x="212" y="42" width="82" height="212" rx="20" fill="var(--sv-car)" stroke="var(--sv-line)" stroke-width="2"/>
+        <rect x="224" y="78" width="58" height="42" rx="8" fill="var(--sv-glass)"/>
+        <rect x="224" y="132" width="58" height="34" rx="7" fill="var(--sv-glass)"/>
+        <text x="253" y="212" class="sv-in">Auto</text>
 
-        <!-- cotes -->
         <g class="sv-dim">
-          <path d="M36 300 H297 M36 294 v12 M297 294 v12"/>
-          <path d="M18 40 V265 M12 40 h12 M12 265 h12"/>
+          <path d="M34 290 H205 M34 284 v12 M205 284 v12"/>
+          <path d="M18 38 V227 M12 38 h12 M12 227 h12"/>
         </g>
-        <text x="166" y="318" class="sv-t">5,80 m</text>
-        <text x="10" y="152" class="sv-t" transform="rotate(-90 10 152)">5,00 m</text>
+        <text x="119" y="308" class="sv-t">3,80 m</text>
+        <text x="10" y="132" class="sv-t" transform="rotate(-90 10 132)">4,20 m</text>
       </svg>
-      <div class="spec-cap">Surface au sol : <b>≈ 29 m²</b> · hauteur au faîtage <b>≈ 2,10 m</b></div>
+      <div class="spec-cap">Avec auvent : <b>≈ 16 m²</b> · sans auvent 3,80 × 2,10 m</div>
     </div>
 
     <!-- ---- Tableaux ---- -->
+    <h3>Masses <span class="spec-src">plaque constructeur</span></h3>
+    <table class="spec-tbl">
+      <tr><td>PTAC (masse maximale en charge)</td><td>495 kg</td></tr>
+      <tr><td>Essieu 1</td><td>495 kg</td></tr>
+      <tr><td>Charge maximale sur la boule</td><td>20 kg</td></tr>
+    </table>
+
+    <h3>Couchage <span class="spec-src">documentation Raclet</span></h3>
+    <table class="spec-tbl">
+      <tr><td>Capacité</td><td>4 à 5 personnes</td></tr>
+      <tr><td>Chambres sur plateau</td><td>2 × 148 × 190 cm</td></tr>
+      <tr><td>Chambre sous plateau</td><td>1 personne</td></tr>
+    </table>
+
+    <h3>Tente déployée <span class="spec-src">documentation Raclet</span></h3>
+    <table class="spec-tbl">
+      <tr><td>Sans auvent</td><td>3,80 × 2,10 m</td></tr>
+      <tr><td>Avec auvent</td><td>3,80 × 4,20 m</td></tr>
+      <tr><td>Surface avec auvent</td><td>≈ 16 m²</td></tr>
+    </table>
+
+    <h3>Remorque fermée <span class="spec-src">à mesurer</span></h3>
+    <table class="spec-tbl">
+      <tr><td>Longueur de caisse</td><td>≈ 2,30 m</td></tr>
+      <tr><td>Largeur (garde-boue compris)</td><td>≈ 1,55 m</td></tr>
+      <tr><td>Hauteur avec le coffre de toit</td><td>≈ 1,60 m</td></tr>
+      <tr><td>Longueur du timon (boule → caisse)</td><td>≈ 1,30 m</td></tr>
+    </table>
+
     <h3>Voiture — Škoda Octavia Combi</h3>
     <table class="spec-tbl">
       <tr><td>Longueur</td><td>4,70 m</td></tr>
@@ -698,40 +736,20 @@
       <tr><td>Empattement</td><td>2,69 m</td></tr>
     </table>
 
-    <h3>Attelage &amp; timon</h3>
-    <table class="spec-tbl">
-      <tr><td>Longueur du timon (boule → caisse)</td><td>≈ 1,30 m</td></tr>
-      <tr><td>Hauteur de la boule d'attelage</td><td>≈ 0,40 m</td></tr>
-      <tr><td>Poids recommandé sur la boule</td><td>50 – 75 kg</td></tr>
-    </table>
-
-    <h3>Remorque fermée (sur la route)</h3>
-    <table class="spec-tbl">
-      <tr><td>Longueur de caisse</td><td>≈ 2,50 m</td></tr>
-      <tr><td>Largeur (garde-boue compris)</td><td>≈ 1,55 m</td></tr>
-      <tr><td>Hauteur avec le coffre de toit</td><td>≈ 1,60 m</td></tr>
-      <tr><td>Longueur totale avec le timon</td><td>≈ 3,80 m</td></tr>
-    </table>
-
-    <h3>Tente déployée</h3>
-    <table class="spec-tbl">
-      <tr><td>Emprise au sol</td><td>≈ 5,80 × 5,00 m</td></tr>
-      <tr><td>Surface</td><td>≈ 29 m²</td></tr>
-      <tr><td>Hauteur au faîtage</td><td>≈ 2,10 m</td></tr>
-    </table>
-
     <h3>Ensemble attelé</h3>
     <table class="spec-tbl">
-      <tr><td>Longueur totale (voiture + remorque)</td><td><b>≈ 8,50 m</b></td></tr>
-      <tr><td>Emplacement de camping conseillé</td><td>8 × 6 m minimum</td></tr>
+      <tr><td>Longueur totale (voiture + remorque)</td><td><b>≈ 8,30 m</b></td></tr>
+      <tr><td>Emplacement de camping conseillé</td><td>6 × 6 m minimum</td></tr>
     </table>
 
     <p class="spec-note spec-todo">
-      À relever sur la <b>plaque constructeur</b> ou la <b>carte grise</b> pour compléter :
-      modèle exact, poids à vide, PTAC, charge utile, dimension et pression des pneus.
+      <b>Attention à la charge sur la boule :</b> la plaque indique 20 kg au maximum.
+      Répartissez le chargement vers l'essieu, pas vers l'avant.
+      Reste à relever : poids à vide réel, dimension et pression des pneus.
     </p>
   </div>
 </div>
+
 
 <div class="backdrop" id="backdrop"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true">
@@ -846,7 +864,7 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "4.2";
+const VERSION = "4.3";
 const VERSION_DATE = "26/07/2026";
 const KEY = "checklist_vacances_v1";
 
