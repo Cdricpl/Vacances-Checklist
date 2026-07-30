@@ -3,16 +3,16 @@
    dernière version publiée quand il y a du réseau, et la dernière version
    consultée quand il n'y en a pas (utile au camping). */
 
-const CACHE = "checklist-vacances-v4.6";
+const CACHE = "checklist-vacances-v4.7";
 
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/icon-maskable-512.png",
-  "./icons/apple-touch-icon.png"
+  "./icons/icon-192.png?v=4.7",
+  "./icons/icon-512.png?v=4.7",
+  "./icons/icon-maskable-512.png?v=4.7",
+  "./icons/apple-touch-icon.png?v=4.7"
 ];
 
 self.addEventListener("install", event => {
