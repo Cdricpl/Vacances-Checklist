@@ -900,7 +900,7 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "4.8";
+const VERSION = "4.9";
 const VERSION_DATE = "30/07/2026";
 const KEY = "checklist_vacances_v1";
 
@@ -1181,8 +1181,11 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 
 document.getElementById("pdfBtn").addEventListener("click", ()=>{
   const d = new Date();
+  /* la version figure dans l'en-tête : on sait ainsi quelle version de
+     l'application a produit un PDF donné */
   document.getElementById("printMeta").textContent =
-    "Édité le " + d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+    "Édité le " + d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})
+    + " · v" + VERSION;
   window.print();   // toutes les catégories sont déjà dans le document
 });
 
