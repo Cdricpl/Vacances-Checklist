@@ -512,54 +512,58 @@
 
     main{ max-width:none; padding:0; }
 
-    /* ---- Rendu post-it, comme à l'écran ----
-       La carte prend la couleur pastel de la catégorie et les éléments
-       redeviennent des pastilles blanches. Une catégorie peut se
-       poursuivre page suivante, mais son titre ne reste jamais seul. */
+    /* ---- Rendu post-it ----
+       Chaque catégorie est un post-it de sa couleur, posé sur la page
+       blanche, avec son scotch et ses pastilles blanches. Les cotes sont
+       généreuses : à l'impression, un rendu trop serré paraît sale. */
     .cat, .cat.off{
       display:block !important;
       position:relative;
       background:var(--c) !important;
-      border:none; border-radius:3mm;
+      border:0.4pt solid rgba(0,0,0,.10);
+      border-radius:1.5mm;
       box-shadow:none; transform:none; animation:none;
-      padding:7mm 4mm 4mm; margin:0 0 5mm;
+      padding:10mm 6mm 6mm; margin:0 0 7mm;
       break-inside:auto;
     }
-    /* scotch — placé dans la carte pour ne pas être rogné en saut de page */
+    /* scotch : légèrement incliné, translucide, bords francs.
+       Placé dans la carte pour survivre aux sauts de page. */
     .cat::before{
       display:block !important;
-      content:""; position:absolute; top:1.6mm; left:50%;
-      transform:translateX(-50%);
-      width:26mm; height:4.4mm;
-      background:rgba(255,255,255,.72) !important;
-      border-left:0.4pt dashed rgba(0,0,0,.18);
-      border-right:0.4pt dashed rgba(0,0,0,.18);
+      content:""; position:absolute; top:3mm; left:50%;
+      transform:translateX(-50%) rotate(-1.4deg);
+      width:34mm; height:6.5mm;
+      background:rgba(255,255,255,.62) !important;
+      border-left:0.6pt solid rgba(0,0,0,.13);
+      border-right:0.6pt solid rgba(0,0,0,.13);
       box-shadow:none;
     }
-    /* hachures décoratives */
+    /* coin corné, en bas à droite : le repère visuel du post-it */
     .cat::after{
       display:block !important;
-      content:""; position:absolute; top:4.5mm; right:4mm;
-      width:12mm; height:4.5mm; opacity:.32;
-      background:repeating-linear-gradient(115deg,
-                 var(--d) 0 0.4mm, transparent 0.4mm 1.7mm) !important;
+      content:""; position:absolute;
+      top:auto; left:auto; right:0; bottom:0;   /* top venait des règles d'écran */
+      width:10mm; height:10mm;
+      border-bottom-right-radius:1.5mm;
+      background:linear-gradient(135deg,
+                 transparent 0 49.5%, rgba(0,0,0,.12) 50% 100%) !important;
     }
 
     .cat-top{
       background:transparent !important;
-      border-bottom:0.5pt dashed rgba(0,0,0,.22);
-      padding:0 1mm 2mm; margin:0 0 2.5mm;
+      border-bottom:0.5pt dashed rgba(0,0,0,.20);
+      padding:0 0 3mm; margin:0 0 4mm;
       break-after:avoid; break-inside:avoid;
-      display:flex; align-items:flex-start; gap:2.5mm;
+      display:flex; align-items:center; gap:3mm;
     }
-    .cat-ico{ font-size:12pt; }
+    .cat-ico{ font-size:15pt; line-height:1; }
     .cat-tt h2{
-      font-family:var(--hand); font-size:14pt;
+      font-family:var(--hand); font-size:16pt; line-height:1.15;
       color:var(--d) !important;
     }
     .cat-tt .cnt{
-      font-family:var(--hand); font-size:9pt;
-      color:var(--d) !important; opacity:.8;
+      font-family:var(--hand); font-size:10pt;
+      color:var(--d) !important; opacity:.7; margin-top:0.6mm;
     }
 
     /* deux colonnes : la liste tient sur bien moins de pages.
@@ -567,33 +571,34 @@
        sur un conteneur flex, ce qu'est .items à l'écran. */
     .items{
       display:block;
-      columns:2; column-gap:4mm;
+      columns:2; column-gap:6mm;
       padding:0; margin:0; gap:0;
     }
     .item{
       break-inside:avoid;
-      display:flex; align-items:center; gap:2.4mm;
+      display:flex; align-items:center; gap:3mm;
       background:#fff !important;
-      border-radius:4mm;
-      padding:1.1mm 2.4mm; margin:0 0 1.2mm;
+      border:0.3pt solid rgba(0,0,0,.06);
+      border-radius:5mm;
+      padding:2mm 3.4mm; margin:0 0 2mm;
       box-shadow:none; opacity:1 !important;
     }
     .box{
-      width:3.4mm; height:3.4mm; min-width:3.4mm;
-      border:0.6pt solid var(--d) !important;
+      width:4mm; height:4mm; min-width:4mm;
+      border:0.8pt solid var(--d) !important;
       background:#fff !important;      /* case vide, cochable au stylo */
-      border-radius:0.8mm;
+      border-radius:1mm;
       color:#fff;
     }
-    .box svg{ width:2.6mm; height:2.6mm; }
+    .box svg{ width:3mm; height:3mm; }
     .item.checked .box{ background:var(--d) !important; }
     .item.checked .box svg polyline{ stroke-dashoffset:0 !important; stroke:#fff !important; }
-    .lbl{ font-size:8.4pt; line-height:1.25; color:#1A1A1A !important; }
+    .lbl{ font-size:9pt; line-height:1.3; color:#1A1A1A !important; }
     .item.checked .lbl{
-      color:#6A6A6A !important;
+      color:#7A7A7A !important;
       text-decoration:line-through; text-decoration-color:var(--d);
     }
-    .empty{ font-family:var(--hand); font-size:10pt; color:var(--d) !important; padding:3mm; }
+    .empty{ font-family:var(--hand); font-size:11pt; color:var(--d) !important; padding:4mm; }
   }
 
   @media (min-width:640px){
@@ -900,7 +905,7 @@ const STYLE = [
   ["🧸","#FBDA8B","#96690A"]
 ];
 
-const VERSION = "4.9";
+const VERSION = "5.0";
 const VERSION_DATE = "30/07/2026";
 const KEY = "checklist_vacances_v1";
 
