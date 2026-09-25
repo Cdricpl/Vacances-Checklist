@@ -3,15 +3,16 @@
    dernière version publiée quand il y a du réseau, et la dernière version
    consultée quand il n'y en a pas (utile au camping). */
 
-const CACHE = "checklist-vacances-v4.9";
+const CACHE = "checklist-vacances-v5.2";
 
+/* Seul le strict nécessaire est pré-chargé : les icônes 512 px pèsent
+   680 Ko à elles deux et ne servent qu'à l'installation, que le système
+   gère de son côté. Elles restent mises en cache si elles sont demandées. */
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./icons/icon-192.png?v=4.7",
-  "./icons/icon-512.png?v=4.7",
-  "./icons/icon-maskable-512.png?v=4.7",
   "./icons/apple-touch-icon.png?v=4.7"
 ];
 

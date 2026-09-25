@@ -9,9 +9,19 @@ Checklist interactive pour préparer le camping en famille.
 - Cases à cocher sauvegardées automatiquement sur l'appareil (`localStorage`)
 - 10 catégories en onglets, avec compteur et progression globale
 - Ajout, modification et suppression d'éléments (choix de la catégorie)
-- Export PDF de la liste complète
+- Export PDF de la liste complète, au rendu post-it
+- Fiche technique (tente, voiture, portage) en vue du dessus
 - Mode clair / sombre
 - **Installable comme application** sur téléphone, **fonctionne hors-ligne**
+
+## Accessibilité
+
+- Contrastes vérifiés ≥ 4,5:1 dans les deux thèmes
+- Cibles tactiles d'au moins 40 px
+- Navigation complète au clavier : flèches entre les onglets, Espace ou
+  Entrée pour cocher, Échap pour fermer les panneaux
+- Anneau de focus visible, rôles ARIA (`tablist`, `tabpanel`, `checkbox`,
+  `progressbar`), animations coupées si le système le demande
 
 ## Installer sur le téléphone
 
@@ -34,7 +44,9 @@ Tout tient dans `index.html` (aucune dépendance externe).
 
 ### Modifier la liste
 
-Les éléments sont dans le tableau `DATA` de `index.html`.
+Les éléments sont dans le tableau `DATA` de `index.html`. Le tableau `STYLE`
+lui est parallèle : icône, pastel, couleur foncée et **nom court d'onglet**.
+La couleur foncée doit garder un contraste d'au moins 4,5:1 sur son pastel.
 
 ⚠️ Les clés de sauvegarde sont indexées par **position** (`c<catégorie>_i<élément>`).
 Ajouter un élément **en fin de liste** est sans risque ; réordonner ou regrouper des
