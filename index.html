@@ -6,7 +6,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="theme-color" content="#FBF6EA">
+<meta name="description" content="Checklist interactive pour préparer le camping en famille : cases à cocher sauvegardées, catégories, export PDF, hors-ligne.">
+<meta name="theme-color" content="#FBF6EA" media="(prefers-color-scheme:light)">
+<meta name="theme-color" content="#191A1D" media="(prefers-color-scheme:dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png?v=4.7" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=4.7">
@@ -25,8 +27,9 @@
     --paper-2:#F4EDDD;
     --card:#FFFFFF;
     --ink:#3A3A38;
-    --ink-soft:#7C766A;
+    --ink-soft:#6A6357;          /* 5,5:1 sur le papier — lisible au soleil */
     --line:#E7DFCC;
+    --focus:#1F6B52;
     --shadow:0 2px 3px rgba(90,75,45,.06), 0 10px 26px rgba(90,75,45,.10);
     --shadow-lg:0 20px 60px rgba(60,45,20,.30);
     --tape:rgba(255,255,255,.62);
@@ -40,8 +43,9 @@
     --paper-2:#1F2126;
     --card:#25272C;
     --ink:#EDE8DC;
-    --ink-soft:#9C978A;
+    --ink-soft:#A9A396;
     --line:#33363D;
+    --focus:#7FD9BE;
     --shadow:0 2px 3px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45);
     --shadow-lg:0 20px 60px rgba(0,0,0,.7);
     --tape:rgba(255,255,255,.10);
@@ -53,7 +57,7 @@
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
       --paper:#191A1D; --paper-2:#1F2126; --card:#25272C;
-      --ink:#EDE8DC; --ink-soft:#9C978A; --line:#33363D;
+      --ink:#EDE8DC; --ink-soft:#A9A396; --line:#33363D; --focus:#7FD9BE;
       --shadow:0 2px 3px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45);
       --shadow-lg:0 20px 60px rgba(0,0,0,.7);
       --tape:rgba(255,255,255,.10);
@@ -66,6 +70,20 @@
 
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
+
+  /* Anneau de focus visible : sans lui, la navigation au clavier était
+     invisible (aucun élément ne montrait où on se trouvait). */
+  :focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+    border-radius:6px;
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important; animation-iteration-count:1 !important;
+      transition-duration:.01ms !important; scroll-behavior:auto !important;
+    }
+  }
   body{
     font-family:var(--body);
     color:var(--ink);
@@ -84,11 +102,11 @@
   header{
     position:relative;
     text-align:center;
-    padding:22px 18px 16px;
+    padding:14px 18px 10px;
   }
-  .doodle{position:absolute; font-size:1.5rem; opacity:.85; user-select:none;}
-  .doodle.l{left:16px; top:24px; transform:rotate(-14deg);}
-  .doodle.r{right:16px; top:24px; transform:rotate(14deg);}
+  .doodle{position:absolute; font-size:1.4rem; opacity:.85; user-select:none;}
+  .doodle.l{left:16px; top:16px; transform:rotate(-14deg);}
+  .doodle.r{right:16px; top:16px; transform:rotate(14deg);}
 
   h1.title{
     margin:0; line-height:1.02;
@@ -96,24 +114,24 @@
     font-weight:400;
   }
   h1.title .l1{
-    display:block; font-size:2.05rem; color:var(--ink);
+    display:block; font-size:1.76rem; color:var(--ink);
     letter-spacing:.5px;
   }
   h1.title .l2{
-    display:block; font-size:1.62rem; font-weight:700;
+    display:block; font-size:1.4rem; font-weight:700;
     color:#2E8B74; margin-top:-2px;
   }
   :root[data-theme="dark"] h1.title .l2{color:#7FD9BE;}
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h1.title .l2{color:#7FD9BE;}}
-  .squiggle{display:block; margin:6px auto 0; width:180px; height:9px; opacity:.55;}
+  .squiggle{display:block; margin:4px auto 0; width:152px; height:8px; opacity:.55;}
   .tagline{
     font-family:var(--hand);
-    font-size:.94rem; color:var(--ink-soft); margin-top:8px;
+    font-size:.88rem; color:var(--ink-soft); margin-top:5px;
   }
 
   /* ---- Jauge globale ---- */
   .gauge{
-    max-width:520px; margin:16px auto 0; padding:0 20px;
+    max-width:520px; margin:12px auto 0; padding:0 20px;
   }
   .gauge-track{
     height:14px; border-radius:20px;
@@ -127,62 +145,80 @@
     transition:width .55s var(--ease);
   }
   .gauge-txt{
-    font-family:var(--hand); font-size:1rem;
-    margin-top:7px; color:var(--ink-soft);
+    font-family:var(--hand); font-size:.98rem;
+    margin-top:6px; color:var(--ink-soft);
     display:flex; justify-content:space-between; align-items:baseline;
   }
   .gauge-txt b{color:var(--ink); font-weight:700;}
 
   .tools-row{
-    display:flex; gap:9px; justify-content:center; flex-wrap:wrap;
-    margin:14px auto 0; padding:0 16px; max-width:520px;
+    display:flex; gap:7px; justify-content:center; flex-wrap:wrap;
+    margin:11px auto 0; padding:0 12px; max-width:520px;
   }
   .tool-btn{
     font-family:var(--body); font-size:.78rem; font-weight:600;
     background:var(--card); color:var(--ink);
     border:1.5px solid var(--line);
-    padding:9px 15px; border-radius:24px; cursor:pointer;
+    min-height:44px; padding:0 13px; border-radius:24px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:5px;
     box-shadow:0 2px 0 var(--line);
     transition:transform .14s var(--ease), box-shadow .14s var(--ease);
   }
+  .tool-btn.icon-only{padding:0; width:44px; justify-content:center; font-size:1rem;}
   .tool-btn:active{transform:translateY(2px); box-shadow:none;}
 
-  /* ================= Onglets pastel ================= */
+  /* ================= Onglets pastel =================
+     Grille et non ligne : les dix onglets tiennent alors en quatre rangées
+     compactes au lieu de sept, et la liste commence dans le premier écran. */
   .tabs{
-    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
-    padding:18px 14px 6px; max-width:640px; margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));
+    gap:7px;
+    padding:10px 14px 4px; max-width:660px; margin:0 auto;
   }
   .tab{
-    --c:#DDD; --d:#666;
-    display:inline-flex; align-items:center; gap:7px;
-    font-family:var(--body); font-size:.78rem; font-weight:600;
-    white-space:nowrap; cursor:pointer;
+    --c:#DDD; --d:#666; --tabink:var(--d);
+    /* Deux lignes (nom puis compteur) : le nom respire là où une seule
+       ligne le coupait par des points de suspension. */
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr);
+    column-gap:6px; row-gap:0;
+    align-items:center;
+    min-height:46px; min-width:0;
+    font-family:var(--body); font-size:.73rem; font-weight:600;
+    line-height:1.2; text-align:left; cursor:pointer;
     background:var(--card); color:var(--ink);
     border:2px solid var(--c);
-    padding:8px 13px; border-radius:24px;
+    padding:5px 7px; border-radius:14px;
     transition:transform .14s var(--ease), background .22s var(--ease), color .2s var(--ease);
   }
-  .tab:active{transform:scale(.94);}
-  .tab .t-ico{font-size:.98rem; line-height:1;}
+  .tab:active{transform:scale(.95);}
+  .tab .t-ico{
+    grid-row:1 / span 2; grid-column:1;
+    font-size:1.1rem; line-height:1;
+  }
+  .tab .t-name{
+    grid-column:2; min-width:0;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
   .tab .t-count{
-    font-size:.68rem; font-weight:700; color:var(--d);
-    background:var(--c); padding:2px 8px; border-radius:12px;
+    grid-column:2;
+    font-size:.63rem; font-weight:700; color:var(--tabink);
+    font-variant-numeric:tabular-nums; opacity:.9;
   }
-  .tab.active{background:var(--c); color:var(--d); border-color:var(--d);}
-  .tab.active .t-count{background:var(--d); color:#fff;}
-  .tab.done{position:relative;}
-  .tab.done::after{
-    content:"✓"; font-size:.7rem; font-weight:800; color:var(--d);
-    margin-left:-2px;
+  .tab.active{background:var(--c); color:var(--d); border-color:var(--d); --tabink:var(--d);}
+  .tab.done .t-name::after{
+    content:" ✓"; font-weight:800; color:var(--tabink);
   }
-  :root[data-theme="dark"] .tab{background:var(--card); color:var(--ink);}
-  :root[data-theme="dark"] .tab .t-count{color:#1B1C20;}
+  :root[data-theme="dark"] .tab{background:var(--card); color:var(--ink); --tabink:var(--c);}
+  :root[data-theme="dark"] .tab.active{--tabink:var(--d);}
   @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]) .tab .t-count{color:#1B1C20;}
+    :root:not([data-theme="light"]) .tab{--tabink:var(--c);}
+    :root:not([data-theme="light"]) .tab.active{--tabink:var(--d);}
   }
 
   /* ================= Carte catégorie (post-it) ================= */
-  main{max-width:560px; margin:0 auto; padding:12px 16px 0;}
+  main{max-width:560px; margin:0 auto; padding:8px 14px 0;}
 
   .cat.off{display:none;}          /* masquée à l'écran, imprimée quand même */
   .cat{
@@ -192,7 +228,7 @@
     position:relative;
     background:var(--catbg);
     border-radius:6px;
-    padding:26px 16px 18px;
+    padding:22px 14px 16px;
     box-shadow:var(--shadow);
     transform:rotate(-.55deg);
     animation:pop .34s var(--ease);
@@ -227,16 +263,16 @@
   }
 
   .cat-top{
-    display:flex; align-items:flex-start; gap:11px;
-    padding:0 2px 12px;
+    display:flex; align-items:flex-start; gap:10px;
+    padding:0 2px 10px;
     border-bottom:2px dashed var(--dash);
-    margin-bottom:12px;
+    margin-bottom:10px;
   }
-  .cat-ico{font-size:1.5rem; line-height:1.1; flex-shrink:0;}
+  .cat-ico{font-size:1.4rem; line-height:1.1; flex-shrink:0;}
   .cat-tt{flex:1; min-width:0;}
   .cat-tt h2{
     margin:0; font-family:var(--hand); font-weight:700;
-    font-size:1.34rem; color:var(--acc); line-height:1.14;
+    font-size:1.26rem; color:var(--acc); line-height:1.14;
     letter-spacing:.3px;
   }
   .cat-tt .cnt{
@@ -248,22 +284,30 @@
     font-family:var(--body); font-size:.7rem; font-weight:700;
     background:var(--row); color:var(--acc);
     border:1.5px solid var(--acc);
-    padding:6px 11px; border-radius:20px; cursor:pointer;
+    min-height:40px; padding:0 12px; border-radius:20px; cursor:pointer;
     transition:transform .14s var(--ease);
   }
   .all-btn:active{transform:scale(.92);}
 
-  .items{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+  .items{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
   .item{
-    display:flex; align-items:center; gap:11px;
+    display:flex; align-items:center; gap:4px;
     background:var(--row);
     border-radius:22px;
-    padding:10px 8px 10px 13px;
-    cursor:pointer;
+    padding:3px 5px 3px 12px;
     box-shadow:0 1px 2px rgba(0,0,0,.06);
-    transition:transform .14s var(--ease), background .25s var(--ease), opacity .25s var(--ease);
+    transition:background .25s var(--ease), opacity .25s var(--ease);
   }
-  .item:active{transform:scale(.985);}
+  /* La zone cochable est un élément à part : elle porte role="checkbox",
+     ce qui serait invalide si elle contenait les boutons ✎ et ✕. */
+  .row-main{
+    flex:1; min-width:0;
+    display:flex; align-items:center; gap:11px;
+    min-height:42px; padding:4px 0;
+    cursor:pointer; border-radius:18px;
+    transition:transform .14s var(--ease);
+  }
+  .row-main:active{transform:scale(.985);}
   .item.checked{background:var(--row-done); opacity:.78;}
 
   .box{
@@ -293,7 +337,7 @@
   }
   .tools{display:flex; gap:0; flex-shrink:0;}
   .t-btn{
-    width:31px; height:31px; border-radius:50%;
+    width:40px; height:40px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     background:transparent; border:none; color:var(--ink-soft);
     font-size:.92rem; cursor:pointer;
@@ -413,7 +457,7 @@
     font-size:1.4rem; color:var(--ink);
   }
   .spec-close{
-    width:38px; height:38px; border-radius:50%; flex-shrink:0;
+    width:44px; height:44px; border-radius:50%; flex-shrink:0;
     background:var(--card); border:1.5px solid var(--line);
     color:var(--ink); font-size:1rem; cursor:pointer;
     transition:transform .14s var(--ease);
@@ -503,7 +547,7 @@
     .tools, .all-btn, .gauge, .tools-row{ display:none !important; }
 
     .print-header{ display:block; text-align:center; margin:0 0 6mm; }
-    .print-header h1{
+    .print-header .ph-title{
       margin:0; font-family:var(--hand); font-size:21pt; color:#1F6B52;
     }
     .print-header .meta{
@@ -583,6 +627,10 @@
       padding:2mm 3.4mm; margin:0 0 2mm;
       box-shadow:none; opacity:1 !important;
     }
+    .row-main{
+      display:flex; align-items:center; gap:3mm;
+      min-height:0; padding:0; transform:none;
+    }
     .box{
       width:4mm; height:4mm; min-width:4mm;
       border:0.8pt solid var(--d) !important;
@@ -601,9 +649,21 @@
     .empty{ font-family:var(--hand); font-size:11pt; color:var(--d) !important; padding:4mm; }
   }
 
+  /* Écrans étroits (360 px et moins) : on resserre les marges plutôt que
+     de laisser la barre d'outils passer sur deux lignes et les noms
+     d'onglets se faire couper. */
+  @media (max-width:389px){
+    .tools-row{padding:0 8px; gap:6px;}
+    .tool-btn{padding:0 11px; font-size:.76rem;}
+    .tabs{padding:10px 10px 4px; gap:6px;}
+    .tab{padding:5px 6px; column-gap:5px; font-size:.71rem;}
+    .tab .t-ico{font-size:1rem;}
+  }
+
   @media (min-width:640px){
     h1.title .l1{font-size:2.4rem;}
     h1.title .l2{font-size:1.9rem;}
+    .tabs{gap:9px;}
   }
 </style>
 </head>
@@ -622,7 +682,10 @@
   <div class="tagline">Camping en famille — à cocher avant le départ 🏕️</div>
 
   <div class="gauge">
-    <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
+    <div class="gauge-track" role="progressbar" id="gaugeBar"
+         aria-label="Progression globale" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="gauge-fill" id="gaugeFill"></div>
+    </div>
     <div class="gauge-txt">
       <span><b id="gTxt">0 / 0</b> dans les valises</span>
       <b id="gPct">0%</b>
@@ -630,17 +693,17 @@
   </div>
 
   <div class="tools-row">
-    <button class="tool-btn" id="pdfBtn">⭳ Exporter en PDF</button>
-    <button class="tool-btn" id="resetBtn">↺ Tout décocher</button>
-    <button class="tool-btn" id="themeBtn" aria-label="Changer le thème">🌙</button>
-    <button class="tool-btn" id="specBtn">📐 Fiche technique</button>
+    <button class="tool-btn" id="pdfBtn">⭳ <span>PDF</span></button>
+    <button class="tool-btn" id="resetBtn">↺ <span>Décocher</span></button>
+    <button class="tool-btn" id="specBtn">📐 <span>Fiche</span></button>
+    <button class="tool-btn icon-only" id="themeBtn" aria-label="Changer le thème">🌙</button>
   </div>
 </header>
 
-<nav class="tabs" id="tabs"></nav>
+<nav class="tabs" id="tabs" role="tablist" aria-label="Catégories"></nav>
 
 <div class="print-header">
-  <h1>Check-list des vacances</h1>
+  <div class="ph-title">Check-list des vacances</div>
   <div class="meta" id="printMeta"></div>
 </div>
 
@@ -649,7 +712,7 @@
 <button class="fab" id="fab"><span class="p">+</span> Ajouter</button>
 
 <footer>
-  Coché automatiquement sauvegardé sur cet appareil ✓
+  Vos coches sont sauvegardées automatiquement sur cet appareil ✓
   <span class="ver" id="version"></span>
 </footer>
 
@@ -906,22 +969,24 @@ const DATA = [
   ]]
 ];
 
-/* icône + couleur pastel + couleur foncée, par catégorie */
+/* icône + pastel + couleur foncée + nom court pour l'onglet.
+   Les couleurs foncées sont calées pour dépasser 4,5:1 sur leur pastel :
+   les compteurs et les titres restent lisibles en plein soleil. */
 const STYLE = [
-  ["⛺","#A8E0C5","#1F6B52"],
-  ["🔧","#AFD9F2","#175F86"],
-  ["🚿","#D0BFF2","#5B3F9C"],
-  ["🔌","#F7E39A","#856107"],
-  ["🍳","#F9BEB4","#A8402F"],
-  ["🧺","#FBD3A6","#96590F"],
-  ["🛏️","#B9C7F2","#36479B"],
-  ["🎒","#CBE7A4","#4E7420"],
-  ["📄","#EBD9AE","#7A5A1E"],
-  ["🧸","#FBDA8B","#96690A"]
+  ["⛺","#A8E0C5","#1D654D","Installation"],
+  ["🔧","#AFD9F2","#175F86","Outillage"],
+  ["🚿","#D0BFF2","#5B3F9C","Hygiène"],
+  ["🔌","#F7E39A","#805D07","Électricité"],
+  ["🍳","#F9BEB4","#903728","Cuisine"],
+  ["🧺","#FBD3A6","#87500D","Rangement"],
+  ["🛏️","#B9C7F2","#36479B","Couchage"],
+  ["🎒","#CBE7A4","#46681D","Sacs"],
+  ["📄","#EBD9AE","#78581D","Papiers"],
+  ["🧸","#FBDA8B","#7E5808","Enfants"]
 ];
 
-const VERSION = "5.1";
-const VERSION_DATE = "30/07/2026";
+const VERSION = "5.2";
+const VERSION_DATE = "25/09/2026";
 const KEY = "checklist_vacances_v1";
 
 /* ---------- Persistance ---------- */
@@ -1011,16 +1076,28 @@ function effectiveTheme(){
   if(t) return t;
   return window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light";
 }
+/* La barre d'état du téléphone suit le thème choisi dans l'application,
+   et pas seulement celui du système. */
+function syncThemeColor(t){
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{
+    m.setAttribute("content", t==="dark" ? "#191A1D" : "#FBF6EA");
+    m.removeAttribute("media");
+  });
+}
 (function initTheme(){
   const saved = localStorage.getItem(KEY+"_theme");
-  if(saved) document.documentElement.setAttribute("data-theme", saved);
-  themeBtn.textContent = effectiveTheme()==="dark" ? "☀️" : "🌙";
+  if(saved){ document.documentElement.setAttribute("data-theme", saved); syncThemeColor(saved); }
+  const t = effectiveTheme();
+  themeBtn.textContent = t==="dark" ? "☀️" : "🌙";
+  themeBtn.setAttribute("aria-label", t==="dark" ? "Passer en mode clair" : "Passer en mode sombre");
 })();
 themeBtn.addEventListener("click", ()=>{
   const next = effectiveTheme()==="dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem(KEY+"_theme", next);
   themeBtn.textContent = next==="dark" ? "☀️" : "🌙";
+  themeBtn.setAttribute("aria-label", next==="dark" ? "Passer en mode clair" : "Passer en mode sombre");
+  syncThemeColor(next);
 });
 
 /* ---------- Données fusionnées ---------- */
@@ -1050,32 +1127,59 @@ const tabsEl = document.getElementById("tabs");
 const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
 /* ---------- Onglets ---------- */
+function selectTab(ci){
+  if(ci === activeTab) return;
+  activeTab = ci;
+  localStorage.setItem(KEY+"_tab", ci);
+  renderTabs(); syncActive();
+  window.scrollTo({ top: tabsEl.offsetTop - 8, behavior:"smooth" });
+}
+
 function renderTabs(){
   tabsEl.innerHTML = "";
   DATA.forEach((cat, ci)=>{
-    const [ico, pastel, deep] = STYLE[ci] || ["•","#DDD","#666"];
+    const [ico, pastel, deep, short] = STYLE[ci] || ["•","#DDD","#666",cat[0]];
     const {done, total} = countCat(ci);
     const tab = document.createElement("button");
     tab.className = "tab" + (ci===activeTab?" active":"") + (total>0 && done===total ? " done" : "");
     tab.dataset.ci = ci;
+    tab.id = "tab-" + ci;
+    tab.type = "button";
     tab.style.setProperty("--c", pastel);
     tab.style.setProperty("--d", deep);
+    /* L'onglet affiche un nom court pour tenir en grille ; le nom complet
+       reste dans l'en-tête de la carte et dans l'étiquette accessible. */
+    tab.setAttribute("role", "tab");
+    tab.setAttribute("aria-selected", ci===activeTab ? "true" : "false");
+    tab.setAttribute("aria-controls", "panel-" + ci);
+    tab.setAttribute("aria-label", cat[0] + " — " + done + " sur " + total);
+    tab.tabIndex = ci===activeTab ? 0 : -1;   /* une seule tabulation pour la barre */
 
     const i = document.createElement("span"); i.className="t-ico"; i.textContent=ico;
-    const n = document.createElement("span"); n.textContent=cat[0];
+    i.setAttribute("aria-hidden","true");
+    const n = document.createElement("span"); n.className="t-name"; n.textContent = short || cat[0];
     const c = document.createElement("span"); c.className="t-count"; c.textContent=done+"/"+total;
+    c.setAttribute("aria-hidden","true");
     tab.append(i, n, c);
 
-    tab.addEventListener("click", ()=>{
-      if(ci === activeTab) return;
-      activeTab = ci;
-      localStorage.setItem(KEY+"_tab", ci);
-      renderTabs(); syncActive();
-      window.scrollTo({ top: tabsEl.offsetTop - 8, behavior:"smooth" });
-    });
+    tab.addEventListener("click", ()=> selectTab(ci));
     tabsEl.appendChild(tab);
   });
 }
+
+/* Flèches, Début et Fin déplacent le focus d'onglet en onglet. */
+tabsEl.addEventListener("keydown", e=>{
+  const keys = {ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1};
+  let next = null;
+  if(keys[e.key] !== undefined) next = (activeTab + keys[e.key] + DATA.length) % DATA.length;
+  else if(e.key === "Home") next = 0;
+  else if(e.key === "End")  next = DATA.length - 1;
+  if(next === null) return;
+  e.preventDefault();
+  selectTab(next);
+  const el = document.getElementById("tab-" + next);
+  if(el) el.focus();
+});
 
 /* ---------- Carte catégorie ---------- */
 /* Toutes les catégories sont toujours présentes dans le document : seule
@@ -1103,11 +1207,15 @@ function buildCard(ci){
   const card = document.createElement("section");
   card.className = "cat";
   card.dataset.ci = ci;
+  card.id = "panel-" + ci;
+  card.setAttribute("role", "tabpanel");
+  card.setAttribute("aria-labelledby", "tab-" + ci);
   card.style.setProperty("--c", pastel);
   card.style.setProperty("--d", deep);
 
   const top = document.createElement("div"); top.className="cat-top";
   const ic = document.createElement("div"); ic.className="cat-ico"; ic.textContent=ico;
+  ic.setAttribute("aria-hidden","true");
   const tt = document.createElement("div"); tt.className="cat-tt";
   const h2 = document.createElement("h2"); h2.textContent = DATA[ci][0];
   const cnt = document.createElement("div"); cnt.className="cnt";
@@ -1117,6 +1225,7 @@ function buildCard(ci){
 
   const allBtn = document.createElement("button");
   allBtn.className = "all-btn";
+  allBtn.type = "button";
   allBtn.textContent = (total>0 && done===total) ? "Tout décocher" : "Tout cocher";
   allBtn.addEventListener("click", ()=>{
     const its = getItems(ci);
@@ -1143,25 +1252,42 @@ function buildRow(it, ci){
   const li = document.createElement("li");
   li.className = "item" + (state[it.key] ? " checked" : "");
 
+  /* La case et l'étiquette forment la zone cochable ; les boutons ✎ et ✕
+     restent en dehors pour rester atteignables au clavier. */
+  const main = document.createElement("div");
+  main.className = "row-main";
+  main.setAttribute("role", "checkbox");
+  main.setAttribute("aria-checked", state[it.key] ? "true" : "false");
+  main.tabIndex = 0;
+
   const box = document.createElement("div"); box.className="box"; box.innerHTML = checkSvg;
+  box.setAttribute("aria-hidden","true");
   const lbl = document.createElement("div"); lbl.className="lbl"; lbl.textContent = it.label;
-  li.append(box, lbl);
+  main.append(box, lbl);
+  li.appendChild(main);
 
   const tools = document.createElement("div"); tools.className="tools";
   const ed = document.createElement("button"); ed.className="t-btn"; ed.textContent="✎";
-  ed.setAttribute("aria-label","Modifier");
+  ed.type = "button";
+  ed.setAttribute("aria-label","Modifier « " + it.label + " »");
   ed.addEventListener("click", e=>{ e.stopPropagation(); openEdit(it, ci); });
   const dl = document.createElement("button"); dl.className="t-btn"; dl.textContent="✕";
-  dl.setAttribute("aria-label","Supprimer");
+  dl.type = "button";
+  dl.setAttribute("aria-label","Supprimer « " + it.label + " »");
   dl.addEventListener("click", e=>{ e.stopPropagation(); deleteItem(it, true); });
   tools.append(ed, dl);
   li.appendChild(tools);
 
-  li.addEventListener("click", ()=>{
+  const toggle = ()=>{
     state[it.key] = !state[it.key];
     saveState();
     li.classList.toggle("checked", !!state[it.key]);
+    main.setAttribute("aria-checked", state[it.key] ? "true" : "false");
     refreshCounts();
+  };
+  main.addEventListener("click", toggle);
+  main.addEventListener("keydown", e=>{
+    if(e.key === " " || e.key === "Enter"){ e.preventDefault(); toggle(); }
   });
   return li;
 }
@@ -1174,15 +1300,16 @@ function refreshCounts(){
   const pct = total ? Math.round(done/total*100) : 0;
   document.getElementById("gPct").textContent = pct + "%";
   document.getElementById("gaugeFill").style.width = pct + "%";
+  document.getElementById("gaugeBar").setAttribute("aria-valuenow", pct);
 
   tabsEl.querySelectorAll(".tab").forEach(tab=>{
     const ci = +tab.dataset.ci;
     const c = countCat(ci);
     tab.querySelector(".t-count").textContent = c.done+"/"+c.total;
     tab.classList.toggle("done", c.total>0 && c.done===c.total);
+    tab.setAttribute("aria-label", DATA[ci][0] + " — " + c.done + " sur " + c.total);
   });
 
-  const c = countCat(activeTab);
   app.querySelectorAll(".cat").forEach(el=>{
     const k = countCat(+el.dataset.ci);
     const cnt = el.querySelector(".cnt");
@@ -1311,7 +1438,9 @@ function closeSpec(){
 document.getElementById("specBtn").addEventListener("click", openSpec);
 document.getElementById("specClose").addEventListener("click", closeSpec);
 document.addEventListener("keydown", e=>{
-  if(e.key === "Escape" && specWrap.classList.contains("open")) closeSpec();
+  if(e.key !== "Escape") return;
+  if(specWrap.classList.contains("open")) closeSpec();
+  else if(sheet.classList.contains("open")) closeSheet();
 });
 
 /* ---------- Installation en application + hors-ligne ---------- */
