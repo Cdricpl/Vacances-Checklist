@@ -3,7 +3,7 @@
    dernière version publiée quand il y a du réseau, et la dernière version
    consultée quand il n'y en a pas (utile au camping). */
 
-const CACHE = "checklist-vacances-v5.2";
+const CACHE = "checklist-vacances-v5.3";
 
 /* Seul le strict nécessaire est pré-chargé : les icônes 512 px pèsent
    680 Ko à elles deux et ne servent qu'à l'installation, que le système
